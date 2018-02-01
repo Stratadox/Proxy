@@ -9,7 +9,7 @@ use Stratadox\Proxy\AlterableCollectionEntryUpdater;
 use Stratadox\Proxy\Test\Foo\Foo;
 use Stratadox\Proxy\Test\Foo\FooProxy;
 use Stratadox\Proxy\Test\Foo\Foos;
-use Stratadox\Proxy\UnmappableInput;
+use Stratadox\Proxy\UnexpectedPropertyType;
 
 /**
  * @covers \Stratadox\Proxy\AlterableCollectionEntryUpdater
@@ -45,7 +45,12 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
 
         $updater = AlterableCollectionEntryUpdater::for($this, 'alterTheEntry', 1);
 
-        $this->expectException(UnmappableInput::class);
+        $this->expectException(UnexpectedPropertyType::class);
+        $this->expectExceptionMessage(sprintf(
+            'Could not assign the value for `%s::alterTheEntry`, got an `array` ' .
+            'instead of `Stratadox\\Collection\\Alterable`',
+            get_class($this)
+        ));
         $updater->updateWith(new Foo());
     }
 }
