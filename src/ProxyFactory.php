@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace Stratadox\Proxy;
 
 use Stratadox\Hydrator\Hydrates;
-use Stratadox\Proxy\ProducesOwnerUpdaters;
-use Stratadox\Proxy\ProducesProxies;
-use Stratadox\Proxy\ProducesProxyLoaders;
-use Stratadox\Proxy\Proxy;
 
 /**
  * Instantiates proxy objects, providing them with a loader.

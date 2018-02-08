@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
-use Stratadox\Proxy\LoadsProxiedObjects;
-use Stratadox\Proxy\ObservesProxyLoading;
-
 abstract class Loader implements LoadsProxiedObjects
 {
     /** @var ObservesProxyLoading[] */

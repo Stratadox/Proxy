@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Stratadox\Proxy;
 
 use Closure;
-use Stratadox\Proxy\UpdatesTheProxyOwner;
 
 /**
  * Updates a property with the newly loaded value.
