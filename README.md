@@ -19,7 +19,7 @@ Virtual proxies can take the place of "real" objects.
 They serve as placeholders for objects that are expensive to load.
 
 The proxied objects may have to be retrieved from a database or remote web server.
-They may just require loads of memory. 
+They may just require loads of memory, or require plenty of other such objects.
 When requests need only **some** of these objects, it can cause terrible performance 
 problems to load **all** of them.
 
@@ -38,7 +38,7 @@ entities in the domain model.
 Let's say that you have a Shop. We all hope for the shop to have a lot of Customers.
 And for the Customers to place a lot of Orders. The more the better!
 
-However... **loading** *all* those Customers, with *all* their orders, require a 
+However... **loading** *all* those Customers, with *all* their orders, requires a 
 lot of memory. Retrieving, organizing and sending the data may take a very long time.
 
 And yet, we want the Shop to have **access** to *all* the Customers, and the
