@@ -30,7 +30,7 @@ These surrogates do not require database queries, and require only little memory
 They satisfy the dependency demands of your class, without the overhead of the
 "actual" objects.
 
-## When use this?
+## When to use this?
 
 Virtual proxies like these are great for lazily loading the relationships of the
 entities in the domain model.
@@ -49,9 +49,9 @@ customers, we can use CustomerProxy objects.
 
 ## How does it work?
 
-The proxies are subclasses of the real entities.
+The [proxies](https://github.com/Stratadox/Proxy#proxies) are subclasses of the real entities.
 That way, they satisfy all type checks.
-[Proxies](https://github.com/Stratadox/Proxy#proxies) overwrite all public methods of the base class.
+Proxies overwrite all public methods of the base class.
 
 When one of these methods is called, the proxy gets loaded.
 This triggers the construction of the "expensive" object.
@@ -76,7 +76,7 @@ be used out-of-the-box. Collection classes that can or will not support array-st
 write operations can also be used, but require a custom [updater](https://github.com/Stratadox/ProxyContracts/blob/master/src/UpdatesTheProxyOwner.php)
 and [factory](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesOwnerUpdaters.php).
 
-## What is this not?
+## What isn't this?
 
 This package only contains the behaviour for the virtual proxies.
 Proxy classes themselves are project-specific, and therefore not included.
