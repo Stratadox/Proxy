@@ -49,7 +49,8 @@ customers, we can use CustomerProxy objects.
 
 ## How does it work?
 
-The [proxies](https://github.com/Stratadox/Proxy#proxies) are subclasses of the real entities.
+The [proxies](https://github.com/Stratadox/Proxy#proxies) are subclasses of the 
+real entities.
 That way, they satisfy all type checks.
 Proxies overwrite all public methods of the base class.
 
@@ -76,15 +77,18 @@ be used out-of-the-box. Collection classes that can or will not support array-st
 write operations can also be used, but require a custom [updater](https://github.com/Stratadox/ProxyContracts/blob/master/src/UpdatesTheProxyOwner.php)
 and [factory](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesOwnerUpdaters.php).
 
-## What isn't this?
+## What this is *not*
 
 This package only contains the behaviour for the virtual proxies.
 Proxy classes themselves are project-specific, and therefore not included.
-
-The proxy classes themselves simply use the Proxying trait and redirect calls.
+The proxy implementations simply use the Proxying trait and redirect calls.
 Classes for the proxies can be hand-crafted during development or, preferably, 
 generated during deployment.
 
+The module is no database, nor is it a data access tool. Although an abstract Loader 
+class is provided, client code is supposed to provide the ProxyFactory with an 
+implementation that [loads proxied objects](https://github.com/Stratadox/ProxyContracts/blob/master/src/LoadsProxiedObjects.php)
+and a factory that [produces proxy loaders](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesProxyLoaders.php).
 
 ## Glossary
 

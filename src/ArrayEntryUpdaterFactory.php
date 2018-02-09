@@ -12,6 +12,7 @@ namespace Stratadox\Proxy;
  */
 class ArrayEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
+    // @todo allow passing the closure
     public function makeUpdaterFor(
         $theOwner,
         string $ofTheProperty,
