@@ -14,7 +14,7 @@ use Stratadox\Proxy\UpdatesTheProxyOwner;
  */
 class PropertyUpdaterFactory_produces_updaters_for_properties extends TestCase
 {
-    /** @scenario */
+    /** @test */
     function making_a_PropertyUpdater()
     {
         $updater = (new PropertyUpdaterFactory)->makeUpdaterFor($this, 'foo');

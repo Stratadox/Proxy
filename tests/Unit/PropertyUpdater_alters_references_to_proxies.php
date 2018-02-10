@@ -16,7 +16,7 @@ class PropertyUpdater_alters_references_to_proxies extends TestCase
 {
     private $alterTheProperty;
 
-    /** @scenario */
+    /** @test */
     function altering_private_properties_of_the_owner()
     {
         $this->alterTheProperty = new FooProxy();

@@ -27,7 +27,7 @@ class Lazily_loading_a_proxy extends TestCase
     /** @var Bar */
     private $bar;
 
-    /** @scenario */
+    /** @test */
     function creating_a_proxy_in_a_property_and_loading_it_when_called_upon()
     {
         $this->foo = $this->fooProxyMaker()->createFor($this, 'foo');
@@ -40,7 +40,7 @@ class Lazily_loading_a_proxy extends TestCase
         $this->assertInstanceOf(Foo::class, $this->foo);
     }
 
-    /** @scenario */
+    /** @test */
     function loaders_receive_information_on_which_object_to_load()
     {
         $this->bar = $this->barProxyMaker()->createFor($this, 'bar');

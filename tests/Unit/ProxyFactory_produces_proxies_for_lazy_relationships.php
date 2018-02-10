@@ -21,7 +21,7 @@ class ProxyFactory_produces_proxies_for_lazy_relationships extends TestCase
     /** @var ProducesProxies */
     private $builder;
 
-    /** @scenario */
+    /** @test */
     function making_a_proxy_object()
     {
         $proxy = $this->builder->createFor($this, 'proxy');

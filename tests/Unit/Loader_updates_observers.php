@@ -13,7 +13,7 @@ use Stratadox\Proxy\Test\Foo\FooLoadingObserver;
  */
 class Loader_updates_observers extends TestCase
 {
-    /** @scenario */
+    /** @test */
     function update_with_result_after_loading()
     {
         $observer = new FooLoadingObserver;
@@ -25,7 +25,7 @@ class Loader_updates_observers extends TestCase
         $this->assertSame($foo, $observer->instance());
     }
 
-    /** @scenario */
+    /** @test */
     function call_nobody_when_unobserved()
     {
         $observer = new FooLoadingObserver;
@@ -36,7 +36,7 @@ class Loader_updates_observers extends TestCase
         $this->assertNull($observer->instance());
     }
 
-    /** @scenario */
+    /** @test */
     function do_not_update_before_loading()
     {
         $observer = new FooLoadingObserver;
@@ -47,7 +47,7 @@ class Loader_updates_observers extends TestCase
         $this->assertNull($observer->instance());
     }
 
-    /** @scenario */
+    /** @test */
     function do_not_update_if_detached()
     {
         $observer = new FooLoadingObserver;

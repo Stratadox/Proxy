@@ -21,7 +21,7 @@ class Proxying_objects_are_lazily_loaded_placeholders extends TestCase
     /** @var ProducesProxies */
     private $builder;
 
-    /** @scenario */
+    /** @test */
     function loading_the_proxied_instance_when_called_upon()
     {
         $proxy = $this->builder->createFor($this, 'proxy');
@@ -29,7 +29,7 @@ class Proxying_objects_are_lazily_loaded_placeholders extends TestCase
         $this->assertInstanceOf(Foo::class, $proxy->__load());
     }
 
-    /** @scenario */
+    /** @test */
     function redirecting_all_calls_to_the_loaded_instance()
     {
         /** @var FooProxy $proxy */

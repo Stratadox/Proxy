@@ -14,7 +14,7 @@ use Stratadox\Proxy\UpdatesTheProxyOwner;
  */
 class AlterableCollectionEntryUpdaterFactory_produces_updaters_for_collection_entries extends TestCase
 {
-    /** @scenario */
+    /** @test */
     function making_an_AlterableCollectionEntryUpdater()
     {
         $updater = (new AlterableCollectionEntryUpdaterFactory)->makeUpdaterFor($this, 'foo', 10);

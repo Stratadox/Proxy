@@ -19,7 +19,7 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
 {
     private $alterTheEntry;
 
-    /** @scenario */
+    /** @test */
     function updating_private_immutable_collection_of_the_owner()
     {
         $this->alterTheEntry = new Foos(
@@ -35,7 +35,7 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
         $this->assertSame($foo, $this->alterTheEntry[1]);
     }
 
-    /** @scenario */
+    /** @test */
     function the_value_must_have_the_expected_type()
     {
         $this->alterTheEntry = [

@@ -14,7 +14,7 @@ use Stratadox\Proxy\UpdatesTheProxyOwner;
  */
 class ArrayEntryUpdaterFactory_produces_updaters_for_array_entries extends TestCase
 {
-    /** @scenario */
+    /** @test */
     function making_an_ArrayEntryUpdater()
     {
         $updater = (new ArrayEntryUpdaterFactory)->makeUpdaterFor($this, 'foo', 10);
