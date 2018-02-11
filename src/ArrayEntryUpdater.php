@@ -34,14 +34,14 @@ class ArrayEntryUpdater implements UpdatesTheProxyOwner
         };
     }
 
-    public static function for(
-        $theOwner,
+    public static function forThe(
+        $owner,
         string $ofTheProperty,
         $atPosition,
         Closure $setter = null
     ) : UpdatesTheProxyOwner
     {
-        return new static($theOwner, $ofTheProperty, $atPosition, $setter);
+        return new static($owner, $ofTheProperty, $atPosition, $setter);
     }
 
     public function updateWith($theLoadedInstance) : void

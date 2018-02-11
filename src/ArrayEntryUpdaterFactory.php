@@ -14,11 +14,11 @@ class ArrayEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
     // @todo allow passing the closure
     public function makeUpdaterFor(
-        $theOwner,
+        $owner,
         string $ofTheProperty,
         $atPosition = null
     ) : UpdatesTheProxyOwner
     {
-        return ArrayEntryUpdater::for($theOwner, $ofTheProperty, $atPosition);
+        return ArrayEntryUpdater::forThe($owner, $ofTheProperty, $atPosition);
     }
 }

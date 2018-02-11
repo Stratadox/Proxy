@@ -27,7 +27,7 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
             new FooProxy()
         );
 
-        $updater = AlterableCollectionEntryUpdater::for($this, 'alterTheEntry', 1);
+        $updater = AlterableCollectionEntryUpdater::forThe($this, 'alterTheEntry', 1);
 
         $foo = new Foo();
         $updater->updateWith($foo);
@@ -43,7 +43,7 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
             new FooProxy()
         ];
 
-        $updater = AlterableCollectionEntryUpdater::for($this, 'alterTheEntry', 1);
+        $updater = AlterableCollectionEntryUpdater::forThe($this, 'alterTheEntry', 1);
 
         $this->expectException(UnexpectedPropertyType::class);
         $this->expectExceptionMessage(sprintf(

@@ -21,7 +21,7 @@ class PropertyUpdater_alters_references_to_proxies extends TestCase
     {
         $this->alterTheProperty = new FooProxy();
 
-        $updater = PropertyUpdater::for($this, 'alterTheProperty');
+        $updater = PropertyUpdater::forThe($this, 'alterTheProperty');
 
         $foo = new Foo();
         $updater->updateWith($foo);

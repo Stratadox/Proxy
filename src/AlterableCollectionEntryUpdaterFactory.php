@@ -14,11 +14,11 @@ class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
     // @todo allow passing the closure
     public function makeUpdaterFor(
-        $theOwner,
+        $owner,
         string $ofTheProperty,
         $atPosition = null
     ) : UpdatesTheProxyOwner
     {
-        return AlterableCollectionEntryUpdater::for($theOwner, $ofTheProperty, $atPosition);
+        return AlterableCollectionEntryUpdater::forThe($owner, $ofTheProperty, $atPosition);
     }
 }

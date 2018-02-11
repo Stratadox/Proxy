@@ -24,7 +24,7 @@ class ArrayEntryUpdater_allows_lazy_loading_with_arrays extends TestCase
             new FooProxy()
         ];
 
-        $updater = ArrayEntryUpdater::for($this, 'alterTheEntry', 1);
+        $updater = ArrayEntryUpdater::forThe($this, 'alterTheEntry', 1);
 
         $foo = new Foo();
         $updater->updateWith($foo);

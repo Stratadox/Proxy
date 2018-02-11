@@ -20,6 +20,6 @@ class AlterableCollectionEntryUpdaterFactory_produces_updaters_for_collection_en
         $updater = (new AlterableCollectionEntryUpdaterFactory)->makeUpdaterFor($this, 'foo', 10);
 
         $this->assertInstanceOf(UpdatesTheProxyOwner::class, $updater);
-        $this->assertEquals(AlterableCollectionEntryUpdater::for($this, 'foo', 10), $updater);
+        $this->assertEquals(AlterableCollectionEntryUpdater::forThe($this, 'foo', 10), $updater);
     }
 }

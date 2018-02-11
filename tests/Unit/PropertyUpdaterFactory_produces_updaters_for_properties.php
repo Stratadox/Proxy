@@ -20,6 +20,6 @@ class PropertyUpdaterFactory_produces_updaters_for_properties extends TestCase
         $updater = (new PropertyUpdaterFactory)->makeUpdaterFor($this, 'foo');
 
         $this->assertInstanceOf(UpdatesTheProxyOwner::class, $updater);
-        $this->assertEquals(PropertyUpdater::for($this, 'foo'), $updater);
+        $this->assertEquals(PropertyUpdater::forThe($this, 'foo'), $updater);
     }
 }

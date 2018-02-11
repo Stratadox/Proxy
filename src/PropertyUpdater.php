@@ -31,13 +31,13 @@ class PropertyUpdater implements UpdatesTheProxyOwner
         };
     }
 
-    public static function for(
-        $theOwner,
+    public static function forThe(
+        $owner,
         string $ofTheProperty,
         Closure $setter = null
     ) : UpdatesTheProxyOwner
     {
-        return new static($theOwner, $ofTheProperty, $setter);
+        return new static($owner, $ofTheProperty, $setter);
     }
 
     public function updateWith($theLoadedInstance) : void

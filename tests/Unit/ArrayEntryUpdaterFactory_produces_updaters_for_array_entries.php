@@ -20,6 +20,6 @@ class ArrayEntryUpdaterFactory_produces_updaters_for_array_entries extends TestC
         $updater = (new ArrayEntryUpdaterFactory)->makeUpdaterFor($this, 'foo', 10);
 
         $this->assertInstanceOf(UpdatesTheProxyOwner::class, $updater);
-        $this->assertEquals(ArrayEntryUpdater::for($this, 'foo', 10), $updater);
+        $this->assertEquals(ArrayEntryUpdater::forThe($this, 'foo', 10), $updater);
     }
 }
