@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
+/**
+ * Lazily loads proxied objects when they are called upon.
+ *
+ * @package Stratadox\Hydrate
+ * @author Stratadox
+ */
 abstract class Loader implements LoadsProxiedObjects
 {
     /** @var ObservesProxyLoading[] */
@@ -18,6 +24,11 @@ abstract class Loader implements LoadsProxiedObjects
     /** @var string|null */
     private $position;
 
+    /**
+     * @param object          $forWhom  The owner of the property.
+     * @param string          $property The property that contains the proxy.
+     * @param int|string|null $position The position in the collection. (or null)
+     */
     public function __construct($forWhom, string $property, $position = null)
     {
         $this->forWhom = $forWhom;
