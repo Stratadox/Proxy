@@ -13,8 +13,7 @@ class FooLoaderFactory implements ProducesProxyLoaders
         $theOwner,
         string $ofTheProperty,
         $atPosition = null
-    ) : LoadsProxiedObjects
-    {
+    ): LoadsProxiedObjects {
         return new FooLoader($theOwner, $ofTheProperty);
     }
 }

@@ -20,13 +20,13 @@ class ArrayEntryUpdater_allows_lazy_loading_with_arrays extends TestCase
     function updating_private_array_of_the_owner()
     {
         $this->alterTheEntry = [
-            new FooProxy(),
-            new FooProxy()
+            new FooProxy,
+            new FooProxy
         ];
 
         $updater = ArrayEntryUpdater::forThe($this, 'alterTheEntry', 1);
 
-        $foo = new Foo();
+        $foo = new Foo;
         $updater->updateWith($foo);
 
         $this->assertSame($foo, $this->alterTheEntry[1]);

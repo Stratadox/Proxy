@@ -35,12 +35,11 @@ class PropertyUpdater implements UpdatesTheProxyOwner
         $owner,
         string $ofTheProperty,
         Closure $setter = null
-    ) : UpdatesTheProxyOwner
-    {
+    ): UpdatesTheProxyOwner {
         return new static($owner, $ofTheProperty, $setter);
     }
 
-    public function updateWith($theLoadedInstance) : void
+    public function updateWith($theLoadedInstance): void
     {
         $this->setter->call($this->owner,
             $this->propertyShouldReference,

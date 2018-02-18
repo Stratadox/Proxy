@@ -17,8 +17,7 @@ class PropertyUpdaterFactory implements ProducesOwnerUpdaters
         $owner,
         string $ofTheProperty,
         $atPosition = null
-    ) : UpdatesTheProxyOwner
-    {
+    ): UpdatesTheProxyOwner {
         return PropertyUpdater::forThe($owner, $ofTheProperty);
     }
 }

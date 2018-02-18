@@ -11,7 +11,7 @@ class FooProxy extends Foo implements Proxy
 {
     use Proxying;
 
-    function bar() : string
+    function bar(): string
     {
         return $this->__load()->bar();
     }

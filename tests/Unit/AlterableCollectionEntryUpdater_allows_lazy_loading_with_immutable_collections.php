@@ -23,8 +23,8 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
     function updating_private_immutable_collection_of_the_owner()
     {
         $this->alterTheEntry = new Foos(
-            new FooProxy(),
-            new FooProxy()
+            new FooProxy,
+            new FooProxy
         );
 
         $updater = AlterableCollectionEntryUpdater::forThe($this, 'alterTheEntry', 1);
@@ -39,8 +39,8 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
     function the_value_must_have_the_expected_type()
     {
         $this->alterTheEntry = [
-            new FooProxy(),
-            new FooProxy()
+            new FooProxy,
+            new FooProxy
         ];
 
         $updater = AlterableCollectionEntryUpdater::forThe($this, 'alterTheEntry', 1);
@@ -51,6 +51,6 @@ class AlterableCollectionEntryUpdater_allows_lazy_loading_with_immutable_collect
             'instead of `Stratadox\\Collection\\Alterable`',
             get_class($this)
         ));
-        $updater->updateWith(new Foo());
+        $updater->updateWith(new Foo);
     }
 }

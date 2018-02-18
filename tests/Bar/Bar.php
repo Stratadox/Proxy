@@ -20,7 +20,7 @@ class Bar
         return $this->madeBy;
     }
 
-    public function inProperty() : string
+    public function inProperty(): string
     {
         return $this->inProperty;
     }

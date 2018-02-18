@@ -36,12 +36,12 @@ abstract class Loader implements LoadsProxiedObjects
         $this->position = $position;
     }
 
-    public function attach(ObservesProxyLoading $observer) : void
+    public function attach(ObservesProxyLoading $observer): void
     {
         $this->observers[] = $observer;
     }
 
-    public function detach(ObservesProxyLoading $observer) : void
+    public function detach(ObservesProxyLoading $observer): void
     {
         unset($this->observers[array_search($observer, $this->observers, true)]);
     }
@@ -53,7 +53,7 @@ abstract class Loader implements LoadsProxiedObjects
         return $instance;
     }
 
-    protected function tellThemWeMadeThis($instance)
+    protected function tellThemWeMadeThis($instance): void
     {
         foreach ($this->observers as $observer) {
             $observer->updateWith($instance);

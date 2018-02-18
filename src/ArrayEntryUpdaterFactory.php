@@ -17,8 +17,7 @@ class ArrayEntryUpdaterFactory implements ProducesOwnerUpdaters
         $owner,
         string $ofTheProperty,
         $atPosition = null
-    ) : UpdatesTheProxyOwner
-    {
+    ): UpdatesTheProxyOwner {
         return ArrayEntryUpdater::forThe($owner, $ofTheProperty, $atPosition);
     }
 }

@@ -39,12 +39,11 @@ class ArrayEntryUpdater implements UpdatesTheProxyOwner
         string $ofTheProperty,
         $atPosition,
         Closure $setter = null
-    ) : UpdatesTheProxyOwner
-    {
+    ): UpdatesTheProxyOwner {
         return new static($owner, $ofTheProperty, $atPosition, $setter);
     }
 
-    public function updateWith($theLoadedInstance) : void
+    public function updateWith($theLoadedInstance): void
     {
         $this->setter->call($this->owner,
             $this->propertyShouldReference, $theLoadedInstance,

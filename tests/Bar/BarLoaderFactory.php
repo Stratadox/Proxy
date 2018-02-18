@@ -13,8 +13,7 @@ class BarLoaderFactory implements ProducesProxyLoaders
         $theOwner,
         string $ofTheProperty,
         $atPosition = null
-    ) : LoadsProxiedObjects
-    {
+    ): LoadsProxiedObjects {
         return new BarLoader($theOwner, $ofTheProperty);
     }
 }

@@ -49,7 +49,7 @@ class Lazily_loading_a_proxy extends TestCase
         $this->assertSame('bar', $this->bar->inProperty());
     }
 
-    private function fooProxyMaker() : ProducesProxies
+    private function fooProxyMaker(): ProducesProxies
     {
         return ProxyFactory::fromThis(
             SimpleHydrator::forThe(FooProxy::class),
@@ -58,7 +58,7 @@ class Lazily_loading_a_proxy extends TestCase
         );
     }
 
-    private function barProxyMaker() : ProducesProxies
+    private function barProxyMaker(): ProducesProxies
     {
         return ProxyFactory::fromThis(
             SimpleHydrator::forThe(BarProxy::class),

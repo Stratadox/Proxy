@@ -6,7 +6,7 @@ namespace Stratadox\Proxy\Test\Foo;
 
 class Foo
 {
-    function bar() : string
+    function bar(): string
     {
         return 'baz';
     }

@@ -32,8 +32,7 @@ class ProxyFactory implements ProducesProxies
         Hydrates $proxies,
         ProducesProxyLoaders $loaderFactory,
         ProducesOwnerUpdaters $updaterFactory
-    ) : ProxyFactory
-    {
+    ): ProxyFactory {
         return new static($proxies, $loaderFactory, $updaterFactory);
     }
 
@@ -41,8 +40,7 @@ class ProxyFactory implements ProducesProxies
         $theOwner,
         string $ofTheProperty,
         $atPosition = null
-    ) : Proxy
-    {
+    ): Proxy {
         $loader = $this->loaderFactory->makeLoaderFor($theOwner, $ofTheProperty, $atPosition);
         $loader->attach(
             $this->updaterFactory->makeUpdaterFor($theOwner, $ofTheProperty, $atPosition)

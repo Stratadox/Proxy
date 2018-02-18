@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
-use function is_null;
+use function is_null as weDidNotYetLoad;
 
 /**
  * Lazily loads proxy targets.
@@ -23,7 +23,7 @@ trait Proxying
     /** @return self */
     public function __load()
     {
-        if (is_null($this->instance)) {
+        if (weDidNotYetLoad($this->instance)) {
             /** @var Proxy $this */
             $this->instance = $this->loader->loadTheInstance();
         }

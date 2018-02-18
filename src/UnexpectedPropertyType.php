@@ -2,26 +2,25 @@
 
 namespace Stratadox\Proxy;
 
-use function get_class;
-use function gettype;
+use function get_class as theClassOf;
+use function gettype as orTheTypeOf;
 use InvalidArgumentException;
-use function is_object;
-use function sprintf;
+use function is_object as isItAnObject;
+use function sprintf as withMessage;
 
 class UnexpectedPropertyType extends InvalidArgumentException
 {
     public static function expectedThe(
         string $interface,
-        $object,
-        $actual,
+        $theOwningObject,
+        $whatWeGot,
         string $property
-    ) : self
-    {
-        return new self(sprintf(
+    ): UnexpectedPropertyType {
+        return new UnexpectedPropertyType(withMessage(
             'Could not assign the value for `%s::%s`, got an `%s` instead of `%s`',
-            get_class($object),
+            theClassOf($theOwningObject),
             $property,
-            is_object($actual) ? get_class($actual) : gettype($actual),
+            isItAnObject($whatWeGot)? theClassOf($whatWeGot) : orTheTypeOf($whatWeGot),
             $interface
         ));
     }

@@ -10,12 +10,12 @@ class FooLoadingObserver implements ObservesProxyLoading
 {
     private $instance;
 
-    public function updateWith($theLoadedInstance) : void
+    public function updateWith($theLoadedInstance): void
     {
         $this->instance = $theLoadedInstance;
     }
 
-    public function instance()
+    public function instance(): ?Foo
     {
         return $this->instance;
     }
