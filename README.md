@@ -80,7 +80,7 @@ be used out-of-the-box. Collection classes that can or will not support array-st
 write operations can also be used, but require a custom [updater](https://github.com/Stratadox/ProxyContracts/blob/master/src/UpdatesTheProxyOwner.php)
 and [factory](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesOwnerUpdaters.php).
 
-## What this is *not*
+## Limitations
 
 This package only contains the behaviour for the virtual proxies.
 Proxy classes themselves are project-specific, and therefore not included.
@@ -93,6 +93,148 @@ class is provided, client code is supposed to provide the ProxyFactory with an
 implementation that [loads proxied objects](https://github.com/Stratadox/ProxyContracts/blob/master/src/LoadsProxiedObjects.php)
 and a factory that [produces proxy loaders](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesProxyLoaders.php).
 
+## Loaders
+
+Given a Foo class:
+```php
+<?php
+
+namespace Acme;
+
+class Foo
+{
+    private $id;
+    private $foo;
+
+    public function __construct(int $id, string $foo)
+    {
+        $this->id = $id;
+        $this->foo = $foo;
+    }
+
+    public function foo() : string
+    {
+        return $this->foo;
+    }
+}
+```
+And a Bar class:
+```php
+<?php
+
+class Bar
+{
+    private $id;
+    private $foos;
+
+    public function __construct(int $id, Foo ...$foos)
+    {
+        $this->id = $id;
+        $this->foos = $foos;
+    }
+
+    public function foo(int $offset) : Foo
+    {
+        return $this->foos[$offset];
+    }
+
+    public function id() : int
+    {
+        return $this->id;
+    }
+}
+```
+The proxy for the foo class would look like this:
+```php
+<?php
+
+use Stratadox\Proxy\Proxy;
+use Stratadox\Proxy\Proxying;
+
+class FooProxy extends Foo implements Proxy
+{
+    use Proxying;
+
+    function foo() : string
+    {
+        return $this->__load()->foo();
+    }
+}
+```
+
+In order to load the "real" Foo class, we can use a loader object.
+Loading a Foo class might involve an API call, querying a database or any other
+kind of operation.
+
+```php
+<?php
+
+use Stratadox\Hydrator\Hydrates;
+use Stratadox\Proxy\Loader;
+
+class FooLoader extends Loader
+{
+    private $database;
+    private $foo;
+
+    public function __construct(SQLite3 $db, Hydrates $foo, Bar $bar, int $index)
+    {
+        $this->database = $db;
+        $this->foo = $foo;
+        parent::__construct($bar, '', $index);
+    }
+
+    protected function doLoad($bar, string $property, $index = null)
+    {
+        $query = $this->database->prepare(
+           'SELECT foo_id, foo_text
+            FROM bar_foo WHERE bar_id = :bar AND offset = :offset'
+        );
+        $query->bindValue('bar', $bar->id());
+        $query->bindValue('offset', $index);
+        $result = $query->execute();
+
+        return $this->foo->fromArray($result->fetchArray(SQLITE3_ASSOC));
+    }
+}
+
+```
+
+Often, loading the object will require collaborators, such as a database
+connection or a http client. The proxy factory does not (and should not) know
+which collaborators are required for the loader.
+
+Instead, these dependencies are injected by a factory:
+
+```php
+<?php
+
+use Stratadox\Hydrator\Hydrates;
+use Stratadox\Proxy\LoadsProxiedObjects;
+use Stratadox\Proxy\ProducesProxyLoaders;
+
+class FooLoaderFactory implements ProducesProxyLoaders
+{
+    private $database;
+    private $foo;
+
+    public function __construct(SQLite3 $database, Hydrates $foo)
+    {
+        $this->database = $database;
+        $this->foo = $foo;
+    }
+
+    public function makeLoaderFor(
+        $bar,
+        string $property,
+        $index = null
+    ) : LoadsProxiedObjects
+    {
+        return new FooLoader($this->database, $this->foo, $bar, $index);
+    }
+}
+```
+
 ## Glossary
 
 ### Proxies
@@ -103,3 +245,7 @@ The object that has a reference to the proxy.
 
 ### Real object
 The expensive-to-load object that might eventually take the place of the proxy.
+
+## Class Diagram
+
+[![Class Diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Proxy_pattern_diagram.svg/439px-Proxy_pattern_diagram.svg.png)](https://en.wikipedia.org/wiki/Proxy_pattern#Structure)
