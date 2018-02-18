@@ -13,7 +13,7 @@ use Stratadox\Collection\Alterable;
  * @package Stratadox\Hydrate
  * @author Stratadox
  */
-class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
+final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
 {
     private $owner;
     private $propertyShouldReference;

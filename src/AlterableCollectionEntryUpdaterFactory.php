@@ -10,7 +10,7 @@ namespace Stratadox\Proxy;
  * @package Stratadox\Hydrate
  * @author Stratadox
  */
-class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdaters
+final class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
     // @todo allow passing the closure
     public function makeUpdaterFor(

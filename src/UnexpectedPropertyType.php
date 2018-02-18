@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use function is_object as isItAnObject;
 use function sprintf as withMessage;
 
-class UnexpectedPropertyType extends InvalidArgumentException
+final class UnexpectedPropertyType extends InvalidArgumentException
 {
     public static function expectedThe(
         string $interface,

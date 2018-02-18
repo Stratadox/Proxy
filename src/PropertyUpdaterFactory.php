@@ -10,7 +10,7 @@ namespace Stratadox\Proxy;
  * @package Stratadox\Hydrate
  * @author Stratadox
  */
-class PropertyUpdaterFactory implements ProducesOwnerUpdaters
+final class PropertyUpdaterFactory implements ProducesOwnerUpdaters
 {
     // @todo allow passing the closure
     public function makeUpdaterFor(

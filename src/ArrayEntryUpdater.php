@@ -12,7 +12,7 @@ use Closure;
  * @package Stratadox\Hydrate
  * @author Stratadox
  */
-class ArrayEntryUpdater implements UpdatesTheProxyOwner
+final class ArrayEntryUpdater implements UpdatesTheProxyOwner
 {
     private $owner;
     private $propertyShouldReference;

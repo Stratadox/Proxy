@@ -12,7 +12,7 @@ use Stratadox\Hydrator\Hydrates;
  * @author Stratadox
  * @package Stratadox/Hydrate
  */
-class ProxyFactory implements ProducesProxies
+final class ProxyFactory implements ProducesProxies
 {
     private $makeProxy;
     private $loaderFactory;
