@@ -53,7 +53,7 @@ abstract class Loader implements LoadsProxiedObjects
         return $instance;
     }
 
-    protected function tellThemWeMadeThis($instance): void
+    private function tellThemWeMadeThis($instance): void
     {
         foreach ($this->observers as $observer) {
             $observer->updateWith($instance);
