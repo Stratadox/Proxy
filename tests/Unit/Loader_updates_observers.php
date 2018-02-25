@@ -59,4 +59,20 @@ class Loader_updates_observers extends TestCase
 
         $this->assertNull($observer->instance());
     }
+
+    /** @test */
+    function detach_the_correct_observer()
+    {
+        $observer = new FooLoadingObserver;
+        $otherObserver = new FooLoadingObserver;
+        $loader = new FooLoader(null, '');
+
+        $loader->attach($observer);
+        $loader->attach($otherObserver);
+        $loader->detach($observer);
+        $loader->loadTheInstance();
+
+        $this->assertNull($observer->instance());
+        $this->assertNotNull($otherObserver->instance());
+    }
 }
