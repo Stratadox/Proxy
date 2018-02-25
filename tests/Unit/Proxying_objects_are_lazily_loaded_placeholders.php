@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy\Test;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Stratadox\Hydrator\SimpleHydrator;
 use Stratadox\Proxy\ProducesProxies;
@@ -36,6 +37,19 @@ class Proxying_objects_are_lazily_loaded_placeholders extends TestCase
         $proxy = $this->builder->createFor($this, 'proxy');
 
         $this->assertEquals('baz', $proxy->bar());
+    }
+
+    /** @test */
+    function cannot_load_a_proxied_instance_without_loader()
+    {
+        $proxy = new FooProxy;
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage(
+            'Cannot load the proxy without a loader. Proxy class: '.FooProxy::class
+        );
+
+        $proxy->__load();
     }
 
     protected function setUp()
