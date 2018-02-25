@@ -1,6 +1,5 @@
 # Proxy
 
-[![Implements](https://img.shields.io/badge/interfaces-github-blue.svg)](https://github.com/Stratadox/ProxyContracts)
 [![Build Status](https://travis-ci.org/Stratadox/Proxy.svg?branch=master)](https://travis-ci.org/Stratadox/Proxy)
 [![Coverage Status](https://coveralls.io/repos/github/Stratadox/Proxy/badge.svg?branch=master)](https://coveralls.io/github/Stratadox/Proxy?branch=master)
 [![Infection Minimum](https://img.shields.io/badge/msi-95-brightgreen.svg)](https://travis-ci.org/Stratadox/Proxy)
@@ -9,6 +8,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/fee3121902411ce994da/maintainability)](https://codeclimate.com/github/Stratadox/Proxy/maintainability)
 [![Latest Stable Version](https://poser.pugx.org/stratadox/proxy/v/stable)](https://packagist.org/packages/stratadox/proxy)
 [![License](https://poser.pugx.org/stratadox/proxy/license)](https://packagist.org/packages/stratadox/proxy)
+
+[![Implements](https://img.shields.io/badge/interfaces-github-blue.svg)](https://github.com/Stratadox/ProxyContracts)
+[![Latest Stable Version](https://poser.pugx.org/stratadox/proxy-contracts/v/stable)](https://packagist.org/packages/stratadox/proxy-contracts)
+[![License](https://poser.pugx.org/stratadox/proxy-contracts/license)](https://packagist.org/packages/stratadox/proxy-contracts)
 
 Virtual proxies, fine-tuned for use in lazy loading.
 
