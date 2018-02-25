@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Stratadox\Proxy\Test;
+namespace Stratadox\Proxy\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Stratadox\Proxy\ArrayEntryUpdater;

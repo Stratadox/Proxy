@@ -21,7 +21,7 @@ abstract class Loader implements LoadsProxiedObjects
     /** @var string */
     private $property;
 
-    /** @var string|null */
+    /** @var int|string|null */
     private $position;
 
     /**

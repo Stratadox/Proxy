@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Stratadox\Proxy\Test;
+namespace Stratadox\Proxy\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Stratadox\Proxy\Test\Foo\FooLoader;
@@ -17,7 +17,7 @@ class Loader_updates_observers extends TestCase
     function update_with_result_after_loading()
     {
         $observer = new FooLoadingObserver;
-        $loader = new FooLoader(null, '');
+        $loader = new FooLoader($this, '');
 
         $loader->attach($observer);
         $foo = $loader->loadTheInstance();
@@ -29,7 +29,7 @@ class Loader_updates_observers extends TestCase
     function call_nobody_when_unobserved()
     {
         $observer = new FooLoadingObserver;
-        $loader = new FooLoader(null, '');
+        $loader = new FooLoader($this, '');
 
         $loader->loadTheInstance();
 
@@ -40,7 +40,7 @@ class Loader_updates_observers extends TestCase
     function do_not_update_before_loading()
     {
         $observer = new FooLoadingObserver;
-        $loader = new FooLoader(null, '');
+        $loader = new FooLoader($this, '');
 
         $loader->attach($observer);
 
@@ -51,7 +51,7 @@ class Loader_updates_observers extends TestCase
     function do_not_update_if_detached()
     {
         $observer = new FooLoadingObserver;
-        $loader = new FooLoader(null, '');
+        $loader = new FooLoader($this, '');
 
         $loader->attach($observer);
         $loader->detach($observer);
@@ -65,7 +65,7 @@ class Loader_updates_observers extends TestCase
     {
         $observer = new FooLoadingObserver;
         $otherObserver = new FooLoadingObserver;
-        $loader = new FooLoader(null, '');
+        $loader = new FooLoader($this, '');
 
         $loader->attach($observer);
         $loader->attach($otherObserver);
