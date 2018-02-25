@@ -43,7 +43,7 @@ abstract class Loader implements LoadsProxiedObjects
 
     public function detach(ObservesProxyLoading $observer): void
     {
-        unset($this->observers[array_search($observer, $this->observers, true)]);
+        unset($this->observers[array_search($observer, $this->observers)]);
     }
 
     final public function loadTheInstance()
