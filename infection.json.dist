@@ -1,11 +1,11 @@
 {
-    "timeout": 5,
-    "source": {
-        "directories": [
-            "src"
-        ]
-    },
-    "logs": {
-        "text": "build\/logs\/infection-log.txt"
-    }
+  "timeout": 5,
+  "source": {
+    "directories": [
+      "src"
+    ]
+  },
+  "logs": {
+    "text": "build\/logs\/infection-log.txt"
+  }
 }
