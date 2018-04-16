@@ -20,6 +20,7 @@ final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
     private $atPosition;
     private $setter;
 
+    /** @throws UnexpectedPropertyType */
     public function __construct(
         $theOwner,
         string $theProperty,
@@ -41,6 +42,7 @@ final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
         };
     }
 
+    /** @throws UnexpectedPropertyType */
     public static function forThe($owner,
         string $ofTheProperty,
         $atPosition,
