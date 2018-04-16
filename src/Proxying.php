@@ -33,7 +33,7 @@ trait Proxying
             ));
         }
         if (weDidNotYetLoad($this->instance)) {
-            /** @var Proxy $this */
+            /** @var Proxy|Proxying $this */
             $this->instance = $this->loader->loadTheInstance();
         }
         return $this->instance;
