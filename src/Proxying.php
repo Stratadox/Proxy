@@ -23,7 +23,7 @@ trait Proxying
     /** @var object|null */
     private $instance;
 
-    /** @return self */
+    /** @return static */
     public function __load()
     {
         if (!$this->loader instanceof LoadsProxiedObjects) {

@@ -36,16 +36,19 @@ abstract class Loader implements LoadsProxiedObjects
         $this->position = $position;
     }
 
+    /** @inheritdoc */
     public function attach(ObservesProxyLoading $observer): void
     {
         $this->observers[] = $observer;
     }
 
+    /** @inheritdoc */
     public function detach(ObservesProxyLoading $observer): void
     {
         unset($this->observers[array_search($observer, $this->observers)]);
     }
 
+    /** @inheritdoc */
     final public function loadTheInstance()
     {
         $instance = $this->doLoad($this->forWhom, $this->property, $this->position);

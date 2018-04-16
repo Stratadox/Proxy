@@ -42,6 +42,7 @@ final class ArrayEntryUpdater implements UpdatesTheProxyOwner
         return new static($owner, $ofTheProperty, $atPosition, $setter);
     }
 
+    /** @inheritdoc */
     public function updateWith($theLoadedInstance): void
     {
         $this->setter->call($this->owner,

@@ -36,6 +36,7 @@ final class ProxyFactory implements ProducesProxies
         return new static($proxies, $loaderFactory, $updaterFactory);
     }
 
+    /** @inheritdoc */
     public function createFor(
         $theOwner,
         string $ofTheProperty,

@@ -12,7 +12,10 @@ namespace Stratadox\Proxy;
  */
 final class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
-    // @todo allow passing the closure
+    /**
+     * @inheritdoc
+     * @todo allow passing the closure
+     */
     public function makeUpdaterFor(
         $owner,
         string $ofTheProperty,
