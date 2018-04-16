@@ -8,7 +8,7 @@ namespace Stratadox\Proxy;
  * Produces @see AlterableCollectionEntryUpdater instances.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 final class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdaters
 {
@@ -17,8 +17,7 @@ final class AlterableCollectionEntryUpdaterFactory implements ProducesOwnerUpdat
         $owner,
         string $ofTheProperty,
         $atPosition = null
-    ) : UpdatesTheProxyOwner
-    {
+    ): UpdatesTheProxyOwner {
         return AlterableCollectionEntryUpdater::forThe($owner, $ofTheProperty, $atPosition);
     }
 }

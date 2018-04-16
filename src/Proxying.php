@@ -12,7 +12,7 @@ use function sprintf as withMessage;
 /**
  * Lazily loads proxy targets.
  *
- * @author Stratadox
+ * @author  Stratadox
  * @package Stratadox/Hydrate
  */
 trait Proxying

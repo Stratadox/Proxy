@@ -8,7 +8,7 @@ namespace Stratadox\Proxy;
  * Produces @see ArrayEntryUpdater instances.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 final class ArrayEntryUpdaterFactory implements ProducesOwnerUpdaters
 {

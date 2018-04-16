@@ -10,7 +10,7 @@ use Closure;
  * Updates a property with the newly loaded value.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 final class PropertyUpdater implements UpdatesTheProxyOwner
 {
@@ -25,8 +25,7 @@ final class PropertyUpdater implements UpdatesTheProxyOwner
     ) {
         $this->owner = $theOwner;
         $this->propertyShouldReference = $theProperty;
-        $this->setter = $setter ?: function (string $property, $value) : void
-        {
+        $this->setter = $setter ?: function (string $property, $value): void {
             $this->$property = $value;
         };
     }

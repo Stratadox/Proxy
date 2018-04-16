@@ -8,7 +8,7 @@ namespace Stratadox\Proxy;
  * Lazily loads proxied objects when they are called upon.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 abstract class Loader implements LoadsProxiedObjects
 {

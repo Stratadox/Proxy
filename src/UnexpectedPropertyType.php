@@ -20,7 +20,7 @@ final class UnexpectedPropertyType extends InvalidArgumentException
             'Could not assign the value for `%s::%s`, got an `%s` instead of `%s`',
             theClassOf($theOwningObject),
             $property,
-            isItAnObject($whatWeGot)? theClassOf($whatWeGot) : orTheTypeOf($whatWeGot),
+            isItAnObject($whatWeGot) ? theClassOf($whatWeGot) : orTheTypeOf($whatWeGot),
             $interface
         ));
     }

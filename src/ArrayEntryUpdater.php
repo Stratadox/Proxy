@@ -10,7 +10,7 @@ use Closure;
  * Updates an array entry with the newly loaded value.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 final class ArrayEntryUpdater implements UpdatesTheProxyOwner
 {
@@ -28,8 +28,7 @@ final class ArrayEntryUpdater implements UpdatesTheProxyOwner
         $this->owner = $theOwner;
         $this->propertyShouldReference = $theProperty;
         $this->atPosition = $atPosition;
-        $this->setter = $setter ?: function (string $property, $value, $position) : void
-        {
+        $this->setter = $setter ?: function (string $property, $value, $position): void {
             $this->$property[$position] = $value;
         };
     }

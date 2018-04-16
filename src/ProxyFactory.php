@@ -9,7 +9,7 @@ use Stratadox\Hydrator\Hydrates;
 /**
  * Instantiates proxy objects, providing them with a loader.
  *
- * @author Stratadox
+ * @author  Stratadox
  * @package Stratadox/Hydrate
  */
 final class ProxyFactory implements ProducesProxies

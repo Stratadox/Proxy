@@ -11,7 +11,7 @@ use Stratadox\Collection\Alterable;
  * Updates a collection to include the newly loaded value.
  *
  * @package Stratadox\Hydrate
- * @author Stratadox
+ * @author  Stratadox
  */
 final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
 {
@@ -30,8 +30,7 @@ final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
         $this->owner = $theOwner;
         $this->propertyShouldReference = $theProperty;
         $this->atPosition = $atPosition;
-        $this->setter = $setter ?: function (string $property, $value, $position): void
-        {
+        $this->setter = $setter ?: function (string $property, $value, $position): void {
             $original = $this->$property;
             if (!$original instanceof Alterable) {
                 throw UnexpectedPropertyType::expectedThe(Alterable::class,
@@ -43,7 +42,8 @@ final class AlterableCollectionEntryUpdater implements UpdatesTheProxyOwner
     }
 
     /** @throws UnexpectedPropertyType */
-    public static function forThe($owner,
+    public static function forThe(
+        $owner,
         string $ofTheProperty,
         $atPosition,
         Closure $setter = null
