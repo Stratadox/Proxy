@@ -60,5 +60,5 @@ abstract class Loader implements LoadsProxiedObjects
         }
     }
 
-    protected abstract function doLoad($forWhom, string $property, $position = null);
+    abstract protected function doLoad($forWhom, string $property, $position = null);
 }
