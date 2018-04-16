@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Stratadox/Proxy.svg?branch=master)](https://travis-ci.org/Stratadox/Proxy)
 [![Coverage Status](https://coveralls.io/repos/github/Stratadox/Proxy/badge.svg?branch=master)](https://coveralls.io/github/Stratadox/Proxy?branch=master)
-[![Infection Minimum](https://img.shields.io/badge/msi-95-brightgreen.svg)](https://travis-ci.org/Stratadox/Proxy)
+[![Infection Minimum](https://img.shields.io/badge/msi-100-brightgreen.svg)](https://travis-ci.org/Stratadox/Proxy)
 [![PhpStan level](https://img.shields.io/badge/phpstan-7-brightgreen.svg)](https://travis-ci.org/Stratadox/Proxy)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Stratadox/Proxy/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Stratadox/Proxy/?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fee3121902411ce994da/maintainability)](https://codeclimate.com/github/Stratadox/Proxy/maintainability)
