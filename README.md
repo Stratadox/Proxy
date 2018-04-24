@@ -103,10 +103,6 @@ and a factory that [produces proxy loaders](https://github.com/Stratadox/ProxyCo
 
 Given a Foo class:
 ```php
-<?php
-
-namespace Acme;
-
 class Foo
 {
     private $id;
@@ -126,8 +122,6 @@ class Foo
 ```
 And a Bar class:
 ```php
-<?php
-
 class Bar
 {
     private $id;
@@ -139,12 +133,12 @@ class Bar
         $this->foos = $foos;
     }
 
-    public function foo(int $offset) : Foo
+    public function foo(int $index): Foo
     {
-        return $this->foos[$offset];
+        return $this->foos[$index];
     }
 
-    public function id() : int
+    public function id(): int
     {
         return $this->id;
     }
@@ -152,8 +146,6 @@ class Bar
 ```
 The proxy for the foo class would look like this:
 ```php
-<?php
-
 use Stratadox\Proxy\Proxy;
 use Stratadox\Proxy\Proxying;
 
@@ -173,11 +165,6 @@ Loading a Foo class might involve an API call, querying a database or any other
 kind of operation.
 
 ```php
-<?php
-
-use Stratadox\Hydrator\Hydrates;
-use Stratadox\Proxy\Loader;
-
 class FooLoader extends Loader
 {
     private $database;
@@ -213,12 +200,6 @@ which collaborators are required for the loader.
 Instead, these dependencies are injected by a factory:
 
 ```php
-<?php
-
-use Stratadox\Hydrator\Hydrates;
-use Stratadox\Proxy\LoadsProxiedObjects;
-use Stratadox\Proxy\ProducesProxyLoaders;
-
 class FooLoaderFactory implements ProducesProxyLoaders
 {
     private $database;
@@ -234,8 +215,7 @@ class FooLoaderFactory implements ProducesProxyLoaders
         $bar,
         string $property,
         $index = null
-    ) : LoadsProxiedObjects
-    {
+    ): LoadsProxiedObjects {
         return new FooLoader($this->database, $this->foo, $bar, $index);
     }
 }
