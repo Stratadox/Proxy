@@ -20,7 +20,7 @@
     "require": {
         "php": ">=7.1",
         "stratadox/proxy-contracts": "^0.1.0",
-        "stratadox/hydrator-contracts": "^0.1.1"
+        "stratadox/hydrator-contracts": "^0.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
