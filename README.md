@@ -68,7 +68,7 @@ This triggers the construction of the "expensive" object.
 Once loaded, the method that was called on the proxy is now called on the [real object](https://github.com/Stratadox/Proxy#real-object).
 All future calls upon the proxy get redirected immediately, without loading.
 
-## There's more, isn't there?
+## What else can it do?
 
 Upon loading, the [owner](https://github.com/Stratadox/Proxy#owner) of the proxy 
 is altered. When the owner calls the proxy, the reference to the proxy is changed 
@@ -160,7 +160,7 @@ class FooProxy extends Foo implements Proxy
 }
 ```
 
-In order to load the "real" Foo class, we can use a loader object.
+In order to load the "real" Foo class, we can use a `loader` object.
 Loading a Foo class might involve an API call, querying a database or any other
 kind of operation.
 
@@ -190,7 +190,6 @@ class FooLoader extends Loader
         return $this->foo->fromArray($result->fetchArray(SQLITE3_ASSOC));
     }
 }
-
 ```
 
 Often, loading the object will require collaborators, such as a database

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Stratadox\Proxy\Test\Integration;
 
 use PHPUnit\Framework\TestCase;
-use Stratadox\Hydrator\SimpleHydrator;
+use Stratadox\Deserializer\ObjectDeserializer;
 use Stratadox\Proxy\ProducesProxies;
 use Stratadox\Proxy\PropertyUpdaterFactory;
 use Stratadox\Proxy\ProxyFactory;
@@ -60,7 +60,7 @@ class Lazily_loading_a_proxy extends TestCase
     private function fooProxyMaker(): ProducesProxies
     {
         return ProxyFactory::fromThis(
-            SimpleHydrator::forThe(FooProxy::class),
+            ObjectDeserializer::forThe(FooProxy::class),
             new FooLoaderFactory,
             new PropertyUpdaterFactory
         );
@@ -69,7 +69,7 @@ class Lazily_loading_a_proxy extends TestCase
     private function barProxyMaker(): ProducesProxies
     {
         return ProxyFactory::fromThis(
-            SimpleHydrator::forThe(BarProxy::class),
+            ObjectDeserializer::forThe(BarProxy::class),
             new BarLoaderFactory,
             new PropertyUpdaterFactory
         );

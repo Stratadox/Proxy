@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
-use Stratadox\Hydrator\Hydrates;
+use Stratadox\Deserializer\Deserializes;
 
 /**
  * Instantiates proxy objects, providing them with a loader.
@@ -19,7 +19,7 @@ final class ProxyFactory implements ProducesProxies
     private $updaterFactory;
 
     private function __construct(
-        Hydrates $proxies,
+        Deserializes $proxies,
         ProducesProxyLoaders $loaderFactory,
         ProducesOwnerUpdaters $updaterFactory
     ) {
@@ -29,7 +29,7 @@ final class ProxyFactory implements ProducesProxies
     }
 
     public static function fromThis(
-        Hydrates $proxies,
+        Deserializes $proxies,
         ProducesProxyLoaders $loaderFactory,
         ProducesOwnerUpdaters $updaterFactory
     ): ProxyFactory {
@@ -46,7 +46,7 @@ final class ProxyFactory implements ProducesProxies
         $loader->attach(
             $this->updaterFactory->makeUpdaterFor($theOwner, $ofTheProperty, $atPosition)
         );
-        return $this->makeProxy->fromArray([
+        return $this->makeProxy->from([
             'loader' => $loader
         ]);
     }

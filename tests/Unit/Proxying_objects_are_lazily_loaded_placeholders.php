@@ -6,7 +6,7 @@ namespace Stratadox\Proxy\Test\Unit;
 
 use LogicException;
 use PHPUnit\Framework\TestCase;
-use Stratadox\Hydrator\SimpleHydrator;
+use Stratadox\Deserializer\ObjectDeserializer;
 use Stratadox\Proxy\ProducesProxies;
 use Stratadox\Proxy\ProxyFactory;
 use Stratadox\Proxy\Test\Foo\Foo;
@@ -55,7 +55,7 @@ class Proxying_objects_are_lazily_loaded_placeholders extends TestCase
     protected function setUp()
     {
         $this->builder = ProxyFactory::fromThis(
-            SimpleHydrator::forThe(FooProxy::class),
+            ObjectDeserializer::forThe(FooProxy::class),
             new FooLoaderFactory,
             new PropertyUpdaterFactory
         );

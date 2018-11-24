@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Stratadox\Proxy\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Stratadox\Hydrator\SimpleHydrator;
+use Stratadox\Deserializer\ObjectDeserializer;
 use Stratadox\Proxy\ProducesProxies;
 use Stratadox\Proxy\Proxy;
 use Stratadox\Proxy\ProxyFactory;
@@ -32,7 +32,7 @@ class ProxyFactory_produces_proxies_for_lazy_relationships extends TestCase
     protected function setUp()
     {
         $this->builder = ProxyFactory::fromThis(
-            SimpleHydrator::forThe(FooProxy::class),
+            ObjectDeserializer::forThe(FooProxy::class),
             new FooLoaderFactory,
             new PropertyUpdaterFactory
         );
