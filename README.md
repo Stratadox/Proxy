@@ -170,7 +170,7 @@ class FooLoader extends Loader
     private $database;
     private $foo;
 
-    public function __construct(SQLite3 $db, Hydrates $foo, Bar $bar, int $index)
+    public function __construct(SQLite3 $db, Deserializes $foo, Bar $bar, int $index)
     {
         $this->database = $db;
         $this->foo = $foo;
@@ -187,7 +187,7 @@ class FooLoader extends Loader
         $query->bindValue('offset', $index);
         $result = $query->execute();
 
-        return $this->foo->fromArray($result->fetchArray(SQLITE3_ASSOC));
+        return $this->foo->from($result->fetchArray(SQLITE3_ASSOC));
     }
 }
 ```
@@ -204,7 +204,7 @@ class FooLoaderFactory implements ProducesProxyLoaders
     private $database;
     private $foo;
 
-    public function __construct(SQLite3 $database, Hydrates $foo)
+    public function __construct(SQLite3 $database, Deserializes $foo)
     {
         $this->database = $database;
         $this->foo = $foo;
