@@ -14,7 +14,7 @@ final class PropertyUpdaterFactory implements ProducesOwnerUpdaters
 {
     /**
      * @inheritdoc
-     * @todo allow passing the closure
+     * @todo allow passing the hydrator
      */
     public function makeUpdaterFor(
         $owner,

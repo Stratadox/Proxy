@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
-use Closure;
+use Stratadox\Hydrator\Hydrates;
+use Stratadox\Hydrator\ObjectHydrator;
 
 /**
  * Updates a property with the newly loaded value.
@@ -16,34 +17,36 @@ final class PropertyUpdater implements UpdatesTheProxyOwner
 {
     private $owner;
     private $propertyShouldReference;
-    private $setter;
+    private $hydrator;
 
     public function __construct(
         $theOwner,
         string $theProperty,
-        Closure $setter = null
+        Hydrates $hydrator
     ) {
         $this->owner = $theOwner;
         $this->propertyShouldReference = $theProperty;
-        $this->setter = $setter ?: function (string $property, $value): void {
-            $this->$property = $value;
-        };
+        $this->hydrator = $hydrator;
     }
 
     public static function forThe(
         $owner,
         string $ofTheProperty,
-        Closure $setter = null
+        Hydrates $setter = null
     ): UpdatesTheProxyOwner {
-        return new static($owner, $ofTheProperty, $setter);
+        return new self(
+            $owner,
+            $ofTheProperty,
+            $setter ?: ObjectHydrator::default()
+        );
     }
 
     /** @inheritdoc */
     public function updateWith($theLoadedInstance): void
     {
-        $this->setter->call($this->owner,
-            $this->propertyShouldReference,
-            $theLoadedInstance
+        $this->hydrator->writeTo(
+            $this->owner,
+            [$this->propertyShouldReference => $theLoadedInstance]
         );
     }
 }
