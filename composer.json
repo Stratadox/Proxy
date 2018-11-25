@@ -18,7 +18,7 @@
         }
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "stratadox/proxy-contracts": "^0.1.0",
         "stratadox/hydrator": "^4.2",
         "stratadox/deserializer-contracts": "^0.1.0"
