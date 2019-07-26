@@ -3,16 +3,12 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-    colors="true">
+    colors="true"
+    cacheResult="false">
 
-    <testsuites>
-        <testsuite name="Unit">
-            <directory suffix=".php">tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Integration">
-            <directory suffix=".php">tests/Integration</directory>
-        </testsuite>
-    </testsuites>
+    <testsuite name="Tests">
+        <directory suffix=".php">tests</directory>
+    </testsuite>
 
     <filter>
         <whitelist>

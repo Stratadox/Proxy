@@ -1,40 +1,24 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Stratadox\Proxy;
 
-use function get_class as classOf;
-use function is_null as weDidNotYetLoad;
-use LogicException;
-use function sprintf as withMessage;
-
-/**
- * Lazily loads proxy targets.
- *
- * @author  Stratadox
- * @package Stratadox/Hydrate
- */
 trait Proxying
 {
-    /** @var LoadsProxiedObjects */
+    /** @var null|static */
+    private $instance;
     private $loader;
 
-    /** @var object|null */
-    private $instance;
+    public function __construct(ProxyLoadingAdapter $loader)
+    {
+        $this->loader = $loader;
+    }
 
     /** @return static */
-    public function __load()
+    private function _load()
     {
-        if (!$this->loader instanceof LoadsProxiedObjects) {
-            throw new LogicException(withMessage(
-                'Cannot load the proxy without a loader. Proxy class: %s',
-                classOf($this)
-            ));
-        }
-        if (weDidNotYetLoad($this->instance)) {
-            /** @var Proxy|Proxying $this */
-            $this->instance = $this->loader->loadTheInstance();
+        if (null === $this->instance) {
+            /** @var Proxying|Proxy $this */
+            $this->instance = $this->loader->load($this);
         }
         return $this->instance;
     }

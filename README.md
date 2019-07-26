@@ -50,9 +50,6 @@ And for the Customers to place a lot of Orders. The more the better!
 However... **loading** *all* those Customers, with *all* their orders, requires a 
 lot of memory. Retrieving, organizing and sending the data may take a very long time.
 
-And yet, we want the Shop to have **access** to *all* the Customers, and the
-Consumers to *all* their Orders.
-
 In order to provide the Shop access to any customer, without loading all the 
 customers, we can use CustomerProxy objects.
 
@@ -68,25 +65,41 @@ This triggers the construction of the "expensive" object.
 Once loaded, the method that was called on the proxy is now called on the [real object](https://github.com/Stratadox/Proxy#real-object).
 All future calls upon the proxy get redirected immediately, without loading.
 
-## What else can it do?
+## Reference updating
 
-Upon loading, the [owner](https://github.com/Stratadox/Proxy#owner) of the proxy 
-is altered. When the owner calls the proxy, the reference to the proxy is changed 
-into a reference to the newly loaded entity.
+If configured as such, upon loading, the [owner](https://github.com/Stratadox/Proxy#owner) 
+of the proxy is altered. When the proxy gets called upon, the reference to the 
+proxy is changed into a reference to the newly loaded entity.
 This is done silently, and with a touch of magic. The entity that held the reference
 doesn't even need to know that the object ever was a proxy.
 
 If the proxy is placed in an array, the position in the array is updated.
 When proxies are contained by [ImmutableCollections](https://github.com/Stratadox/ImmutableCollection),
 the reference of the owner to the collection is changed into a reference to a copy
-of the container, with the loaded entity in place of the proxy.
+of the collection that has the loaded entity in place of the proxy.
 
-Other collection classes can be used as well: any container with ArrayAccess can
-be used out-of-the-box. Collection classes that can or will not support array-style
-write operations can also be used, but require a custom [updater](https://github.com/Stratadox/ProxyContracts/blob/master/src/UpdatesTheProxyOwner.php)
-and [factory](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesOwnerUpdaters.php).
+Other collection classes can be used as well: any container with [ArrayAccess](https://www.php.net/manual/en/class.arrayaccess.php) 
+can be used out-of-the-box. Collection classes that can or will not support 
+array-style write operations can also be used, given custom reference updaters 
+are supplied.
 
-## Limitations
+The advantage of this mechanism is that referential integrity is mostly maintained.
+For example, if an `employee` has a reference to the proxy of a `company`, and 
+later on the `company` is loaded and some service obtains a reference to the 
+non-proxy version of this particular `company`, the `employee` entity's reference 
+will point to the *same instance* as the service. There's also a small performance 
+benefit, due to not rerouting each method call through a proxy after loading.
+
+A potential disadvantage could be that, if a reference the proxy object is passed 
+to other objects (that do not have a reference updater), those other objects will 
+still hold a reference to the proxy, rather than the actual entity, after the 
+proxy is loaded.
+
+The ways to mitigate this include:
+- to not pass references to unloaded proxies around
+- to not depend on object references in the first place
+
+## Just proxying
 
 This package only contains the behaviour for the virtual proxies.
 Proxy classes themselves are project-specific, and therefore not included.
@@ -95,130 +108,8 @@ Classes for the proxies can be hand-crafted during development or, preferably,
 generated during deployment.
 
 The module is no database, nor is it a data access tool. Although an abstract Loader 
-class is provided, client code is supposed to provide the ProxyFactory with an 
-implementation that [loads proxied objects](https://github.com/Stratadox/ProxyContracts/blob/master/src/LoadsProxiedObjects.php)
-and a factory that [produces proxy loaders](https://github.com/Stratadox/ProxyContracts/blob/master/src/ProducesProxyLoaders.php).
-
-## Loaders
-
-Given a Foo class:
-```php
-class Foo
-{
-    private $id;
-    private $foo;
-
-    public function __construct(int $id, string $foo)
-    {
-        $this->id = $id;
-        $this->foo = $foo;
-    }
-
-    public function foo() : string
-    {
-        return $this->foo;
-    }
-}
-```
-And a Bar class:
-```php
-class Bar
-{
-    private $id;
-    private $foos;
-
-    public function __construct(int $id, Foo ...$foos)
-    {
-        $this->id = $id;
-        $this->foos = $foos;
-    }
-
-    public function foo(int $index): Foo
-    {
-        return $this->foos[$index];
-    }
-
-    public function id(): int
-    {
-        return $this->id;
-    }
-}
-```
-The proxy for the foo class would look like this:
-```php
-use Stratadox\Proxy\Proxy;
-use Stratadox\Proxy\Proxying;
-
-class FooProxy extends Foo implements Proxy
-{
-    use Proxying;
-
-    function foo() : string
-    {
-        return $this->__load()->foo();
-    }
-}
-```
-
-In order to load the "real" Foo class, we can use a `loader` object.
-Loading a Foo class might involve an API call, querying a database or any other
-kind of operation.
-
-```php
-class FooLoader extends Loader
-{
-    private $database;
-    private $foo;
-
-    public function __construct(SQLite3 $db, Deserializes $foo, Bar $bar, int $index)
-    {
-        $this->database = $db;
-        $this->foo = $foo;
-        parent::__construct($bar, '', $index);
-    }
-
-    protected function doLoad($bar, string $property, $index = null)
-    {
-        $query = $this->database->prepare(
-           'SELECT foo_id, foo_text
-            FROM bar_foo WHERE bar_id = :bar AND offset = :offset'
-        );
-        $query->bindValue('bar', $bar->id());
-        $query->bindValue('offset', $index);
-        $result = $query->execute();
-
-        return $this->foo->from($result->fetchArray(SQLITE3_ASSOC));
-    }
-}
-```
-
-Often, loading the object will require collaborators, such as a database
-connection or a http client. The proxy factory does not (and should not) know
-which collaborators are required for the loader.
-
-Instead, these dependencies are injected by a factory:
-
-```php
-class FooLoaderFactory implements ProducesProxyLoaders
-{
-    private $database;
-    private $foo;
-
-    public function __construct(SQLite3 $database, Deserializes $foo)
-    {
-        $this->database = $database;
-        $this->foo = $foo;
-    }
-
-    public function makeLoaderFor(
-        $bar,
-        string $property,
-        $index = null
-    ): LoadsProxiedObjects {
-        return new FooLoader($this->database, $this->foo, $bar, $index);
-    }
-}
-```
+class is provided, client code is supposed to provide the mechanism through which 
+the proxied entities are loaded.
 
 ## Glossary
 
