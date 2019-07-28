@@ -13,7 +13,7 @@ final class BasicProxyFactory implements ProxyFactory
 
     private function __construct(
         string $class,
-        ProxyLoadingAdapter $loader
+        ProxyLoader $loader
     ) {
         $this->class = $class;
         $this->loader = $loader;
@@ -27,13 +27,11 @@ final class BasicProxyFactory implements ProxyFactory
 
     public static function for(string $class, ProxyLoader $loader): ProxyFactory
     {
-        return new self($class, ProxyLoadingAdapter::using($loader));
+        return new self($class, $loader);
     }
 
     public function create(array $knownData = []): Proxy
     {
-        $proxy = new $this->class($this->loader);
-        $this->loader->attachDataTo($proxy, $knownData);
-        return $proxy;
+        return new $this->class(new LoadCommand($this->loader, $knownData));
     }
 }

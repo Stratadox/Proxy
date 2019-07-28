@@ -6,11 +6,11 @@ trait Proxying
 {
     /** @var null|static */
     private $instance;
-    private $loader;
+    private $loadCommand;
 
-    public function __construct(ProxyLoadingAdapter $loader)
+    public function __construct(LoadCommand $command)
     {
-        $this->loader = $loader;
+        $this->loadCommand = $command;
     }
 
     /** @return static */
@@ -18,7 +18,7 @@ trait Proxying
     {
         if (null === $this->instance) {
             /** @var Proxying|Proxy $this */
-            $this->instance = $this->loader->load($this);
+            $this->instance = $this->loadCommand->execute();
         }
         return $this->instance;
     }
