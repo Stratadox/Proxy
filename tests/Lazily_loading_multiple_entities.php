@@ -4,8 +4,16 @@ namespace Stratadox\Proxy\Test;
 
 use PHPUnit\Framework\TestCase;
 use Stratadox\Proxy\BasicProxyFactory;
+use Stratadox\Proxy\CompositeProxyFactory;
+use Stratadox\Proxy\Test\Domain\Collection\Car;
+use Stratadox\Proxy\Test\Domain\Collection\Collectible;
+use Stratadox\Proxy\Test\Domain\Collection\Collector;
+use Stratadox\Proxy\Test\Domain\Collection\Painting;
 use Stratadox\Proxy\Test\Domain\Simple\SimpleEntity;
 use Stratadox\Proxy\Test\Domain\Simple\SimpleValue;
+use Stratadox\Proxy\Test\Infrastructure\Collection\CarProxy;
+use Stratadox\Proxy\Test\Infrastructure\Collection\InMemoryCollectibleLoader;
+use Stratadox\Proxy\Test\Infrastructure\Collection\PaintingProxy;
 use Stratadox\Proxy\Test\Infrastructure\Simple\InMemorySimpleEntityLoader;
 use Stratadox\Proxy\Test\Infrastructure\Simple\SimpleEntityProxy;
 
@@ -36,5 +44,39 @@ class Lazily_loading_multiple_entities extends TestCase
         $this->assertTrue(
             SimpleValue::withValue('bar')->equals($entity2->attribute())
         );
+    }
+
+    /** @test */
+    function loading_several_proxies_of_different_concrete_types()
+    {
+        $items = [
+            Car::withPlateNumber('foo'),
+            Car::withPlateNumber('bar'),
+            Car::withPlateNumber('baz'),
+            Painting::by('Famous Painter', 'Work of art #1'),
+            Painting::by('Incredible Painter', 'Masterpiece'),
+        ];
+        $loader = new InMemoryCollectibleLoader(['Richard Richman' => $items]);
+        $proxyFactory = CompositeProxyFactory::decidingBy('type', [
+            'car' => BasicProxyFactory::for(CarProxy::class, $loader),
+            'painting' => BasicProxyFactory::for(PaintingProxy::class, $loader),
+        ]);
+
+        /** @var Collectible[] $proxies */
+        $proxies = [];
+        foreach ($items as $i => $realItem) {
+            $proxies[] = $proxyFactory->create([
+                'owner' => 'Richard Richman',
+                'offset' => $i,
+                'type' => $realItem instanceof Car ? 'car' : 'painting'
+            ]);
+        }
+        $collector = new Collector('Richard Richman', ...$proxies);
+
+        $this->assertFalse($collector->owns(Car::withPlateNumber('nope')));
+        $this->assertFalse($collector->owns(Painting::by('Schmuck', 'Trash')));
+        foreach ($items as $thatItem) {
+            $this->assertTrue($collector->owns($thatItem));
+        }
     }
 }
