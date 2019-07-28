@@ -2,6 +2,8 @@
 
 namespace Stratadox\Proxy;
 
+use LogicException;
+
 trait Proxying
 {
     /** @var null|static */
@@ -17,8 +19,16 @@ trait Proxying
     private function _load()
     {
         if (null === $this->instance) {
-            /** @var Proxying|Proxy $this */
-            $this->instance = $this->loader->load($this);
+            try {
+                /** @var Proxying|Proxy $this */
+                $this->instance = $this->loader->load($this);
+            } catch (ProxyLoadingFailure $e) {
+                throw new LogicException(
+                    'Proxy configuration error: ' . $e->getMessage(),
+                    $e->getCode(),
+                    $e
+                );
+            }
         }
         return $this->instance;
     }

@@ -2,6 +2,7 @@
 
 namespace Stratadox\Proxy;
 
+use Stratadox\Hydrator\CannotHydrate;
 use Stratadox\Hydrator\Hydrates;
 use Stratadox\Hydrator\ObjectHydrator;
 
@@ -23,6 +24,7 @@ final class PropertyUpdate implements Update
 
     public static function of(object $owner, string $property): self
     {
+        // @todo: default to ReflectiveHydrator to prevent public alternatives
         return new self(ObjectHydrator::default(), $owner, $property);
     }
 
@@ -36,6 +38,10 @@ final class PropertyUpdate implements Update
 
     public function with(object $instance, array $inputData): void
     {
-        $this->hydrator->writeTo($this->owner, [$this->property => $instance]);
+        try {
+            $this->hydrator->writeTo($this->owner, [$this->property => $instance]);
+        } catch (CannotHydrate $exception) {
+            throw CouldNotUpdateReference::failedToUpdate($instance, $exception);
+        }
     }
 }
