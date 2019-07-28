@@ -22,12 +22,12 @@ final class UpdatingLoader implements ReferenceUpdatingLoader
     {
         $instance = $this->loader->loadTheInstance($proxy);
         foreach ($this->update as $update) {
-            $update->with($instance);
+            $update->with($instance, $proxy);
         }
         return $instance;
     }
 
-    public function schedule(PropertyUpdate $update): void
+    public function schedule(Update $update): void
     {
         $this->update[] = $update;
     }

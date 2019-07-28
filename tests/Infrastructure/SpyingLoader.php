@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Stratadox\Proxy\Test\Infrastructure\Simple;
+namespace Stratadox\Proxy\Test\Infrastructure;
 
 use Stratadox\Proxy\ProxyLoader;
 

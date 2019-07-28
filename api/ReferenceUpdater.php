@@ -4,5 +4,5 @@ namespace Stratadox\Proxy;
 
 interface ReferenceUpdater
 {
-    public function schedule(PropertyUpdate $update): void;
+    public function schedule(Update $update): void;
 }

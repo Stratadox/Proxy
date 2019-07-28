@@ -7,7 +7,7 @@ use Stratadox\Proxy\BasicProxyFactory;
 use Stratadox\Proxy\Test\Domain\Simple\SimpleEntity;
 use Stratadox\Proxy\Test\Infrastructure\Simple\SimpleEntityProxy;
 use Stratadox\Proxy\Test\Infrastructure\Simple\SuperSimpleLoader;
-use Stratadox\Proxy\Test\Infrastructure\Simple\SpyingLoader;
+use Stratadox\Proxy\Test\Infrastructure\SpyingLoader;
 
 /**
  * @testdox Lazily loading an entity
