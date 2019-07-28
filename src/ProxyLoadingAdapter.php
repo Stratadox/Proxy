@@ -19,7 +19,6 @@ class ProxyLoadingAdapter
         return new self($loader);
     }
 
-    /** @throws ProxyLoadingFailure */
     public function load(Proxy $object): object
     {
         return $this->loader->loadTheInstance(

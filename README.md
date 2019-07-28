@@ -65,40 +65,6 @@ This triggers the construction of the "expensive" object.
 Once loaded, the method that was called on the proxy is now called on the [real object](https://github.com/Stratadox/Proxy#real-object).
 All future calls upon the proxy get redirected immediately, without loading.
 
-## Reference updating
-
-If configured as such, upon loading, the [owner](https://github.com/Stratadox/Proxy#owner) 
-of the proxy is altered. When the proxy gets called upon, the reference to the 
-proxy is changed into a reference to the newly loaded entity.
-This is done silently, and with a touch of magic. The entity that held the reference
-doesn't even need to know that the object ever was a proxy.
-
-If the proxy is placed in an array, the position in the array is updated.
-When proxies are contained by [ImmutableCollections](https://github.com/Stratadox/ImmutableCollection),
-the reference of the owner to the collection is changed into a reference to a copy
-of the collection that has the loaded entity in place of the proxy.
-
-Other collection classes can be used as well: any container with [ArrayAccess](https://www.php.net/manual/en/class.arrayaccess.php) 
-can be used out-of-the-box. Collection classes that can or will not support 
-array-style write operations can also be used, given custom reference updaters 
-are supplied.
-
-The advantage of this mechanism is that referential integrity is mostly maintained.
-For example, if an `employee` has a reference to the proxy of a `company`, and 
-later on the `company` is loaded and some service obtains a reference to the 
-non-proxy version of this particular `company`, the `employee` entity's reference 
-will point to the *same instance* as the service. There's also a small performance 
-benefit, due to not rerouting each method call through a proxy after loading.
-
-A potential disadvantage could be that, if a reference the proxy object is passed 
-to other objects (that do not have a reference updater), those other objects will 
-still hold a reference to the proxy, rather than the actual entity, after the 
-proxy is loaded.
-
-The ways to mitigate this include:
-- to not pass references to unloaded proxies around
-- to not depend on object references in the first place
-
 ## Just proxying
 
 This package only contains the behaviour for the virtual proxies.
@@ -107,17 +73,13 @@ The proxy implementations simply use the Proxying trait and redirect calls.
 Classes for the proxies can be hand-crafted during development or, preferably, 
 generated during deployment.
 
-The module is no database, nor is it a data access tool. Although an abstract Loader 
-class is provided, client code is supposed to provide the mechanism through which 
-the proxied entities are loaded.
+The module is no database, nor is it a data access tool. Client code is supposed 
+to provide the mechanism through which the proxied entities are loaded.
 
 ## Glossary
 
 ### Proxies
 The placeholder or surrogate for the "real" object.
-
-### Owner
-The object that has a reference to the proxy.
 
 ### Real object
 The expensive-to-load object that might eventually take the place of the proxy.
