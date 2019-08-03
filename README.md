@@ -23,7 +23,7 @@ Install using composer:
 
 ## What is this?
 
-An implementation of the [Virtual Proxy pattern](https://en.wikipedia.org/wiki/Proxy_pattern#Virtual_Proxy).
+An implementation of the [Virtual Proxy pattern](https://en.wikipedia.org/wiki/Proxy_pattern#Virtual_proxy).
 Virtual proxies can take the place of "real" objects. 
 They serve as placeholders for objects that are expensive to load.
 
@@ -65,6 +65,65 @@ This triggers the construction of the "expensive" object.
 Once loaded, the method that was called on the proxy is now called on the [real object](https://github.com/Stratadox/Proxy#real-object).
 All future calls upon the proxy get redirected immediately, without loading.
 
+## How to use?
+
+### Creating a proxy loader
+Proxy loaders implement the ProxyLoader interface:
+```php
+<?php
+use Stratadox\Proxy\ProxyLoader;
+
+class MyLoader implements ProxyLoader
+{
+    private $repository;
+
+    public function __construct(MyRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function loadTheInstance(array $data): object
+    {
+        return $this->repository->byId($data['id']);
+    }
+}
+```
+
+### Making a proxy factory
+Producing a basic factory is as simple as this:
+```php
+<?php
+use Stratadox\Proxy\BasicProxyFactory;
+
+$proxyFactory = BasicProxyFactory::for(MyProxy::class, new MyLoader());
+```
+
+### Creating a proxy
+The proxy should be given the information needed by the [loader](#creating-a-proxy-loader):
+```php
+<?php
+/** @var \Stratadox\Proxy\ProxyFactory $proxyFactory */
+$proxyFactory->create(['id' => 1]);
+```
+
+### Collections with items of differing concrete type
+When the concrete type of the proxy class depends on the known data, one can use:
+```php
+<?php
+use Stratadox\Proxy\BasicProxyFactory;
+use Stratadox\Proxy\CompositeProxyFactory;
+
+// making the factory:
+$proxyFactory = CompositeProxyFactory::decidingBy('type', [
+    'car' => BasicProxyFactory::for(CarProxy::class, $loader),
+    'painting' => BasicProxyFactory::for(PaintingProxy::class, $loader),
+]);
+
+// creating the proxies:
+$carProxy = $proxyFactory->create(['type' => 'car', 'id' => 1]);
+$paintingProxy = $proxyFactory->create(['type' => 'painting', 'id' => 5]);
+```
+
 ## Just proxying
 
 This package only contains the behaviour for the virtual proxies.
@@ -75,6 +134,59 @@ generated during deployment.
 
 The module is no database, nor is it a data access tool. Client code is supposed 
 to provide the mechanism through which the proxied entities are loaded.
+
+## Limitations
+
+In order to be able to make a proxy for a class, the class must:
+- Not be declared `final`
+- Not have a `constructor` that is declared `final`
+- Not access private properties of other objects*
+- Not be compared by reference**
+
+*for example, although normally valid, this would **not** work with proxies:
+```php
+<?php
+class Foo {
+    private $foo;
+    public function __construct(string $foo) {
+        $this->foo = $foo;
+    }
+    public function isEqual(Foo $other): bool {
+        return $this->foo === $other->foo;
+    }
+}
+```
+**for example, although this would otherwise work, **not** so with proxies:
+```php
+<?php
+class Foo {
+    private $foo;
+    public function __construct(string $foo) {
+        $this->foo = $foo;
+    }
+    public function isEqual(Foo $other): bool {
+        return $this == $other;
+    }
+}
+```
+
+Instead, compare other (potentially proxied) instances through their public 
+interface:
+```php
+<?php
+class Foo {
+    private $foo;
+    public function __construct(string $foo) {
+        $this->foo = $foo;
+    }
+    public function foo(): string {
+        return $this->foo;
+    }
+    public function isEqual(Foo $other): bool {
+        return $this->foo() === $other->foo();
+    }
+}
+```
 
 ## Glossary
 
