@@ -32,6 +32,6 @@ final class BasicProxyFactory implements ProxyFactory
 
     public function create(array $knownData = []): Proxy
     {
-        return new $this->class(new LoadCommand($this->loader, $knownData));
+        return new $this->class($this->loader, $knownData);
     }
 }
