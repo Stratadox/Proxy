@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy;
 
+/**
+ * Proxying behaviour.
+ *
+ * @author Stratadox
+ */
 trait Proxying
 {
     /** @var null|static */

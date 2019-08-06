@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy;
 
+/**
+ * CompositeProxyFactory.
+ *
+ * @author Stratadox
+ */
 final class CompositeProxyFactory implements ProxyFactory
 {
     private $key;

@@ -6,6 +6,11 @@ use InvalidArgumentException;
 use function is_a;
 use function sprintf;
 
+/**
+ * BasicProxyFactory.
+ *
+ * @author Stratadox
+ */
 final class BasicProxyFactory implements ProxyFactory
 {
     private $class;
