@@ -2,6 +2,7 @@
 
 namespace Stratadox\Proxy\Test;
 
+use function assert;
 use PHPUnit\Framework\TestCase;
 use Stratadox\Proxy\BasicProxyFactory;
 use Stratadox\Proxy\CompositeProxyFactory;
@@ -65,11 +66,13 @@ class Lazily_loading_multiple_entities extends TestCase
         /** @var Collectible[] $proxies */
         $proxies = [];
         foreach ($items as $i => $realItem) {
-            $proxies[] = $proxyFactory->create([
+            $proxy = $proxyFactory->create([
                 'owner' => 'Richard Richman',
                 'offset' => $i,
                 'type' => $realItem instanceof Car ? 'car' : 'painting'
             ]);
+            assert($proxy instanceof Collectible);
+            $proxies[] = $proxy;
         }
         $collector = new Collector('Richard Richman', ...$proxies);
 
