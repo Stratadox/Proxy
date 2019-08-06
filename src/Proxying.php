@@ -19,7 +19,6 @@ trait Proxying
     private function _load()
     {
         if (null === $this->instance) {
-            /** @var Proxying|Proxy $this */
             $this->instance = $this->loader->loadTheInstance($this->knownData);
         }
         return $this->instance;
