@@ -139,7 +139,6 @@ to provide the mechanism through which the proxied entities are loaded.
 
 In order to be able to make a proxy for a class, the class must:
 - Not be declared `final`
-- Not have a `constructor` that is declared `final`
 - Not access private properties of other objects*
 - Not be compared by reference**
 

@@ -3,4 +3,6 @@ parameters:
   paths:
     - src
     - tests
+  excludes_analyse:
+    - %currentWorkingDirectory%/src/ProxyingWithoutConstructor.php
   inferPrivatePropertyTypeFromConstructor: true
