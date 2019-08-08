@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
+/**
+ * Painting for in the collection.
+ *
+ * @author Stratadox
+ */
 class Painting implements Collectible
 {
     private $painter;

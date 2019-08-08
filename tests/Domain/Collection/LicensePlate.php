@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
+/**
+ * A License Plate can identify a car.
+ *
+ * @author Stratadox
+ */
 class LicensePlate
 {
     private $plateSequence;

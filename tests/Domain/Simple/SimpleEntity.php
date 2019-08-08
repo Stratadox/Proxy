@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Simple;
 
+/**
+ * Simple entity with an id and an attribute.
+ *
+ * @author Stratadox
+ */
 class SimpleEntity
 {
     private $id;

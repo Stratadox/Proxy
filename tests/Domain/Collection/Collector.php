@@ -2,8 +2,14 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
-use function array_filter;
-
+/**
+ * The Collector owns a number of collectibles. Since a collectible can have
+ * a number of implementations, in this case either a painting or a car, we
+ * can't be entirely sure which proxy class to load without knowing something
+ * about the collectible item beforehand.
+ *
+ * @author Stratadox
+ */
 class Collector
 {
     private $name;

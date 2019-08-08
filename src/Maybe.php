@@ -5,7 +5,8 @@ namespace Stratadox\Proxy;
 use Stratadox\Specification\Contract\Satisfiable;
 
 /**
- * Maybe.
+ * Maybe. Indicates that this proxy factory is a maybe, it depends on the
+ * constraint being satisfied with the known data.
  *
  * @author Stratadox
  */
@@ -20,6 +21,13 @@ final class Maybe implements Choice
         $this->constraint = $constraint;
     }
 
+    /**
+     * Creates a new maybe situation for the proxy factory.
+     *
+     * @param ProxyFactory $factory    The factory to maybe use.
+     * @param Satisfiable  $constraint The constraint that has to be met.
+     * @return Choice                  The new maybe factory.
+     */
     public static function the(
         ProxyFactory $factory,
         Satisfiable $constraint
@@ -27,11 +35,13 @@ final class Maybe implements Choice
         return new self($factory, $constraint);
     }
 
+    /** @inheritdoc */
     public function shouldUseFor(array $data): bool
     {
         return $this->constraint->isSatisfiedBy($data);
     }
 
+    /** @inheritdoc */
     public function create(array $knownData = []): Proxy
     {
         return $this->factory->create($knownData);

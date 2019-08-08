@@ -2,8 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
-use Stratadox\Proxy\Test\Domain\Collection\Collectible;
-
+/**
+ * MaintenanceRequest.
+ *
+ * @author Stratadox
+ */
 class MaintenanceRequest
 {
     /** @var iterable|Collectible[] */

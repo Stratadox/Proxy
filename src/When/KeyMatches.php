@@ -5,7 +5,8 @@ namespace Stratadox\Proxy\When;
 use Stratadox\Specification\Contract\Satisfiable;
 
 /**
- * When\KeyMatches.
+ * When\KeyMatches. Constraint to check if the known data contains a particular
+ * key/value pair.
  *
  * @author Stratadox
  */
@@ -20,11 +21,20 @@ final class KeyMatches implements Satisfiable
         $this->value = $value;
     }
 
+    /**
+     * Produces a constraint that is satisfied with data that contains this
+     * particular key/value pair.
+     *
+     * @param string $key   The key to look for.
+     * @param mixed  $value The value that is expected.
+     * @return Satisfiable  The constraint.
+     */
     public static function with(string $key, $value): Satisfiable
     {
         return new self($key, $value);
     }
 
+    /** @inheritdoc */
     public function isSatisfiedBy($knownData): bool
     {
         return ($knownData[$this->key] ?? null) === $this->value;

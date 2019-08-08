@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
+/**
+ * Collectible item.
+ *
+ * @author Stratadox
+ */
 interface Collectible
 {
     public function isIndeed(Collectible $other): bool;

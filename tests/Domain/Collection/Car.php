@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
+/**
+ * Car for in the collection.
+ *
+ * @author Stratadox
+ */
 class Car implements Collectible
 {
     private $plate;

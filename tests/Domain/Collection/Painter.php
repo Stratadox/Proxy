@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Collection;
 
+/**
+ * A painter paints paintings.
+ *
+ * @author Stratadox
+ */
 class Painter
 {
     private $name;

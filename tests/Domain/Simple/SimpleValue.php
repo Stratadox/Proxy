@@ -2,6 +2,11 @@
 
 namespace Stratadox\Proxy\Test\Domain\Simple;
 
+/**
+ * Super simple value object.
+ *
+ * @author Stratadox
+ */
 class SimpleValue
 {
     private $value;

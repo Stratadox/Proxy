@@ -29,17 +29,20 @@ class Lazily_loading_multiple_entities extends TestCase
     /** @test */
     function loading_two_proxies_with_previously_known_identifiers()
     {
+        // Arrange
         $loader = new InMemorySimpleEntityLoader([
             'id-01' => SimpleEntity::withIdAndAttribute('id-01', 'foo'),
             'id-02' => SimpleEntity::withIdAndAttribute('id-02', 'bar'),
         ]);
         $proxyFactory = BasicProxyFactory::for(SimpleEntityProxy::class, $loader);
 
+        // Act
         /** @var SimpleEntity $entity1 */
         $entity1 = $proxyFactory->create(['id' => 'id-01']);
         /** @var SimpleEntity $entity2 */
         $entity2 = $proxyFactory->create(['id' => 'id-02']);
 
+        // Assert
         $this->assertSame('id-01', $entity1->id());
         $this->assertTrue(
             SimpleValue::withValue('foo')->equals($entity1->attribute())
@@ -53,6 +56,7 @@ class Lazily_loading_multiple_entities extends TestCase
     /** @test */
     function loading_several_proxies_of_different_concrete_types()
     {
+        // Arrange
         $items = [
             Car::withPlateNumber('foo'),
             Car::withPlateNumber('bar'),
@@ -66,6 +70,7 @@ class Lazily_loading_multiple_entities extends TestCase
             'painting' => BasicProxyFactory::for(PaintingProxy::class, $loader),
         ]);
 
+        // Act
         /** @var Collectible[] $proxies */
         $proxies = [];
         foreach ($items as $i => $realItem) {
@@ -79,6 +84,7 @@ class Lazily_loading_multiple_entities extends TestCase
         }
         $collector = new Collector('Richard Richman', ...$proxies);
 
+        // Assert
         $this->assertFalse($collector->owns(Car::withPlateNumber('nope')));
         $this->assertFalse($collector->owns(Painting::by('Schmuck', 'Trash')));
         foreach ($items as $thatItem) {
@@ -89,6 +95,7 @@ class Lazily_loading_multiple_entities extends TestCase
     /** @test */
     function deciding_the_proxy_classes_based_on_multiple_pieces_of_known_data()
     {
+        // Arrange
         $richardsItems = [
             Car::withPlateNumber('foo'),
             Car::withPlateNumber('bar'),
@@ -121,6 +128,7 @@ class Lazily_loading_multiple_entities extends TestCase
             ))
         );
 
+        // Act
         /** @var Collectible[] $proxies */
         $proxies = [];
         foreach ($richardsItems as $i => $realItem) {
@@ -145,6 +153,7 @@ class Lazily_loading_multiple_entities extends TestCase
         }
         $john = new Collector('John Doe', ...$proxies);
 
+        // Assert
         foreach ($richardsItems as $thatItem) {
             $this->assertTrue($richard->owns($thatItem));
             $this->assertFalse($john->owns($thatItem));
@@ -158,12 +167,16 @@ class Lazily_loading_multiple_entities extends TestCase
     /** @test */
     function throwing_an_exception_when_the_proxy_type_cannot_be_determined()
     {
+        // Arrange
         $loader = new InMemoryCollectibleLoader(['Richard Richman' => []]);
         $proxyFactory = CompositeProxyFactory::decidingBy('type', [
             'painting' => BasicProxyFactory::for(PaintingProxy::class, $loader),
         ]);
 
+        // Assert
         $this->expectException(ProxyProductionFailed::class);
+
+        // Act
         $proxyFactory->create([
             'owner' => 'Richard Richman',
             'offset' => 0,

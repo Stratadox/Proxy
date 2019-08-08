@@ -5,7 +5,8 @@ namespace Stratadox\Proxy\When;
 use Stratadox\Specification\Contract\Satisfiable;
 
 /**
- * When\KeysMatch.
+ * When\KeysMatch. Constraint to check if the known data matches with any set of
+ * key/value pairs in a list of such sets.
  *
  * @author Stratadox
  */
@@ -18,11 +19,19 @@ final class KeysMatch implements Satisfiable
         $this->canMatchWith = $canMatchWith;
     }
 
+    /**
+     * Produces a constraint that is satisfied with data that contains all the
+     * key/value pairs in one of the given key/value pair sets.
+     *
+     * @param array $canMatchWith The key/value pair sets.
+     * @return Satisfiable        The constraint.
+     */
     public static function withEitherOf(array ...$canMatchWith): Satisfiable
     {
         return new self(...$canMatchWith);
     }
 
+    /** @inheritdoc */
     public function isSatisfiedBy($knownData): bool
     {
         foreach ($this->canMatchWith as $set) {

@@ -3,7 +3,7 @@
 namespace Stratadox\Proxy;
 
 /**
- * Proxying behaviour.
+ * Proxying behaviour. Basic behaviour for easily creating a proxy class.
  *
  * @author Stratadox
  */
