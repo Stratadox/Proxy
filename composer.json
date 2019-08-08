@@ -21,7 +21,7 @@
         "php": ">=7.2",
         "stratadox/hydrator": "^4.2",
         "stratadox/specification-interfaces": "^1.0",
-        "stratadox/proxy-contracts": "^0.2.0"
+        "stratadox/proxy-contracts": "^0.2.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

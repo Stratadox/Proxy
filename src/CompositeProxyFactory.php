@@ -2,6 +2,8 @@
 
 namespace Stratadox\Proxy;
 
+use Stratadox\Proxy\When\KeyMatches;
+
 /**
  * CompositeProxyFactory.
  *
@@ -9,30 +11,34 @@ namespace Stratadox\Proxy;
  */
 final class CompositeProxyFactory implements ProxyFactory
 {
-    private $key;
-    /** @var ProxyFactory[] */
-    private $factories;
+    private $choices;
 
-    public function __construct(string $decisionKey, array $factories)
+    private function __construct(Choice ...$choices)
     {
-        $this->key = $decisionKey;
-        foreach ($factories as $key => $factory) {
-            $this->addFactory($key, $factory);
+        $this->choices = $choices;
+    }
+
+    public static function decidingBy(string $key, array $factories): ProxyFactory
+    {
+        $choices = [];
+        foreach ($factories as $value => $factory) {
+            $choices[] = Maybe::the($factory, KeyMatches::with($key, $value));
         }
+        return new self(...$choices);
     }
 
-    private function addFactory(string $key, ProxyFactory $factory): void
+    public static function using(Choice ...$choices): ProxyFactory
     {
-        $this->factories[$key] = $factory;
-    }
-
-    public static function decidingBy(string $key, array $factories): self
-    {
-        return new self($key, $factories);
+        return new self(...$choices);
     }
 
     public function create(array $knownData = []): Proxy
     {
-        return $this->factories[$knownData[$this->key]]->create($knownData);
+        foreach ($this->choices as $choice) {
+            if ($choice->shouldUseFor($knownData)) {
+                return $choice->create($knownData);
+            }
+        }
+        throw NoFactoryFound::forData($knownData);
     }
 }
