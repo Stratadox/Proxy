@@ -23,8 +23,8 @@ final class KeysMatch implements Satisfiable
      * Produces a constraint that is satisfied with data that contains all the
      * key/value pairs in one of the given key/value pair sets.
      *
-     * @param array $canMatchWith The key/value pair sets.
-     * @return Satisfiable        The constraint.
+     * @param array ...$canMatchWith The key/value pair sets.
+     * @return Satisfiable           The constraint.
      */
     public static function withEitherOf(array ...$canMatchWith): Satisfiable
     {
