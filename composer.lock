@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3390d223b930d7ad67da3fff1d832951",
+    "content-hash": "a8bcaab71a65608783caafc14df3d677",
     "packages": [
         {
             "name": "stratadox/collection-contracts",
@@ -208,6 +208,41 @@
                 }
             ],
             "time": "2018-06-17T14:22:33+00:00"
+        },
+        {
+            "name": "stratadox/proxy-contracts",
+            "version": "v0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Stratadox/ProxyContracts.git",
+                "reference": "94e29474c2707201cee86b9c4466dcd73b38c403"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Stratadox/ProxyContracts/zipball/94e29474c2707201cee86b9c4466dcd73b38c403",
+                "reference": "94e29474c2707201cee86b9c4466dcd73b38c403",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stratadox\\Proxy\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stratadox",
+                    "homepage": "http://www.stratadox.com/"
+                }
+            ],
+            "time": "2019-08-08T13:56:41+00:00"
         },
         {
             "name": "stratadox/sorting-contracts",
