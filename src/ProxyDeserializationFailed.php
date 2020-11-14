@@ -3,12 +3,12 @@
 namespace Stratadox\Proxy;
 
 use LogicException;
-use Stratadox\Deserializer\CannotDeserialize;
+use Stratadox\Deserializer\DeserializationFailure;
 
 final class ProxyDeserializationFailed extends LogicException implements ProxyProductionFailed
 {
     public static function encountered(
-        CannotDeserialize $exception
+        DeserializationFailure $exception
     ): ProxyProductionFailed {
         return new self(sprintf(
             'Could not deserialize the proxy instance: %s',

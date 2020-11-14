@@ -12,6 +12,7 @@ use Stratadox\Specification\Contract\Satisfiable;
  */
 final class KeysMatch implements Satisfiable
 {
+    /** @var mixed[][] */
     private $canMatchWith;
 
     private function __construct(array ...$canMatchWith)

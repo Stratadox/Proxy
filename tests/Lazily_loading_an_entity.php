@@ -32,7 +32,7 @@ class Lazily_loading_an_entity extends TestCase
         $proxyFactory->create();
 
         // Assert
-        $this->assertFalse($loader->hasLoaded());
+        self::assertFalse($loader->hasLoaded());
     }
 
     /** @test */
@@ -49,7 +49,7 @@ class Lazily_loading_an_entity extends TestCase
         $proxy->id();
 
         // Assert
-        $this->assertTrue($loader->hasLoaded());
+        self::assertTrue($loader->hasLoaded());
     }
 
     /** @test */
@@ -67,7 +67,7 @@ class Lazily_loading_an_entity extends TestCase
         $proxy->id();
 
         // Assert
-        $this->assertSame(1, $loader->timesLoaded());
+        self::assertSame(1, $loader->timesLoaded());
     }
 
     /** @test */
@@ -85,7 +85,7 @@ class Lazily_loading_an_entity extends TestCase
         $proxy = $proxyFactory->create(['value' => 'foo']);
 
         // Assert
-        $this->assertSame('foo', $proxy->value());
+        self::assertSame('foo', $proxy->value());
     }
 
     /** @test */

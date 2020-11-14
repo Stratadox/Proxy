@@ -43,12 +43,12 @@ class Lazily_loading_multiple_entities extends TestCase
         $entity2 = $proxyFactory->create(['id' => 'id-02']);
 
         // Assert
-        $this->assertSame('id-01', $entity1->id());
-        $this->assertTrue(
+        self::assertSame('id-01', $entity1->id());
+        self::assertTrue(
             SimpleValue::withValue('foo')->equals($entity1->attribute())
         );
-        $this->assertSame('id-02', $entity2->id());
-        $this->assertTrue(
+        self::assertSame('id-02', $entity2->id());
+        self::assertTrue(
             SimpleValue::withValue('bar')->equals($entity2->attribute())
         );
     }
@@ -85,10 +85,10 @@ class Lazily_loading_multiple_entities extends TestCase
         $collector = new Collector('Richard Richman', ...$proxies);
 
         // Assert
-        $this->assertFalse($collector->owns(Car::withPlateNumber('nope')));
-        $this->assertFalse($collector->owns(Painting::by('Schmuck', 'Trash')));
+        self::assertFalse($collector->owns(Car::withPlateNumber('nope')));
+        self::assertFalse($collector->owns(Painting::by('Schmuck', 'Trash')));
         foreach ($items as $thatItem) {
-            $this->assertTrue($collector->owns($thatItem));
+            self::assertTrue($collector->owns($thatItem));
         }
     }
 
@@ -155,12 +155,12 @@ class Lazily_loading_multiple_entities extends TestCase
 
         // Assert
         foreach ($richardsItems as $thatItem) {
-            $this->assertTrue($richard->owns($thatItem));
-            $this->assertFalse($john->owns($thatItem));
+            self::assertTrue($richard->owns($thatItem));
+            self::assertFalse($john->owns($thatItem));
         }
         foreach ($johnsItems as $thatItem) {
-            $this->assertTrue($john->owns($thatItem));
-            $this->assertFalse($richard->owns($thatItem));
+            self::assertTrue($john->owns($thatItem));
+            self::assertFalse($richard->owns($thatItem));
         }
     }
 

@@ -19,15 +19,16 @@
     },
     "require": {
         "php": ">=7.2",
+        "ext-json": "*",
         "stratadox/specification-interfaces": "^1.0",
         "stratadox/proxy-contracts": "^0.3",
-        "stratadox/deserializer-contracts": "^0.1.0"
+        "stratadox/deserializer-contracts": "^0.3.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^8.2",
         "php-coveralls/php-coveralls": "^2.0",
-        "phpstan/phpstan": "^0.11.12",
-        "stratadox/deserializer": "^0.1.1"
+        "phpstan/phpstan": "^0.12",
+        "stratadox/deserializer": "^0.2"
     }
 }

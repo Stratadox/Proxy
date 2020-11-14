@@ -1,8 +1,6 @@
 parameters:
-  level: 7
-  paths:
-    - src
-    - tests
-  excludes_analyse:
-    - %currentWorkingDirectory%/src/ProxyingWithoutConstructor.php
-  inferPrivatePropertyTypeFromConstructor: true
+    level: 8
+    paths:
+        - src
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

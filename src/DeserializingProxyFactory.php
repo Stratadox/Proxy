@@ -2,22 +2,24 @@
 
 namespace Stratadox\Proxy;
 
-use Stratadox\Deserializer\CannotDeserialize;
-use Stratadox\Deserializer\Deserializes;
+use Stratadox\Deserializer\DeserializationFailure;
+use Stratadox\Deserializer\Deserializer;
 
 final class DeserializingProxyFactory implements ProxyFactory
 {
+    /** @var Deserializer */
     private $deserializer;
+    /** @var ProxyLoader */
     private $loader;
 
-    private function __construct(Deserializes $deserializer, ProxyLoader $loader)
+    private function __construct(Deserializer $deserializer, ProxyLoader $loader)
     {
         $this->deserializer = $deserializer;
         $this->loader = $loader;
     }
 
     public static function using(
-        Deserializes $deserializer,
+        Deserializer $deserializer,
         ProxyLoader $loader
     ): ProxyFactory {
         return new self($deserializer, $loader);
@@ -31,7 +33,7 @@ final class DeserializingProxyFactory implements ProxyFactory
                 'loader' => $this->loader,
                 'knownData' => $knownData,
             ]);
-        } catch (CannotDeserialize $exception) {
+        } catch (DeserializationFailure $exception) {
             throw ProxyDeserializationFailed::encountered($exception);
         }
     }

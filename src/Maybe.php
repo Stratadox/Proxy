@@ -12,7 +12,9 @@ use Stratadox\Specification\Contract\Satisfiable;
  */
 final class Maybe implements Choice
 {
+    /** @var ProxyFactory */
     private $factory;
+    /** @var Satisfiable */
     private $constraint;
 
     private function __construct(ProxyFactory $factory, Satisfiable $constraint)

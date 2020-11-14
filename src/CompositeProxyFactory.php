@@ -12,6 +12,7 @@ use Stratadox\Proxy\When\KeyMatches;
  */
 final class CompositeProxyFactory implements ProxyFactory
 {
+    /** @var Choice[] */
     private $choices;
 
     private function __construct(Choice ...$choices)

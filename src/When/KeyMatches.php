@@ -12,9 +12,15 @@ use Stratadox\Specification\Contract\Satisfiable;
  */
 final class KeyMatches implements Satisfiable
 {
+    /** @var string */
     private $key;
+    /** @var mixed */
     private $value;
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
     private function __construct(string $key, $value)
     {
         $this->key = $key;

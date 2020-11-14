@@ -14,7 +14,9 @@ use function sprintf;
  */
 final class BasicProxyFactory implements ProxyFactory
 {
+    /** @var string */
     private $class;
+    /** @var ProxyLoader */
     private $loader;
 
     private function __construct(

@@ -11,7 +11,9 @@ trait Proxying
 {
     /** @var null|static */
     private $instance;
+    /** @var ProxyLoader */
     private $loader;
+    /** @var mixed[] */
     private $knownData;
 
     public function __construct(ProxyLoader $loader, array $knownData)
